@@ -71,7 +71,7 @@
                 $('#btnOrde').click(function(e){
                     t_custno=$('#txtAddrno').val();
                     t_cno=$('#txtCno').val();
-                    var t_where = "(caseno='"+t_cno+"') and (addrno3='"+t_custno+"')";
+                    var t_where = "(caseno='"+t_cno+"') and (addrno3='"+t_custno+"') and not exists(select noa,noq from view_tranvcces where a.noa=ordeno and a.noq=no2) ";
                     q_box("tranordepa_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranorde_tranvcce', "100%", "100%", "");
                 });
 
@@ -86,8 +86,8 @@
                                 if (!b_ret || b_ret.length == 0)
                                     return;
                                     ret = q_gridAddRow(bbsHtm, 'tbbs', 
-                                    'txtOrdeno,txtNo2,txtBdate,txtConn,txtTel,txtAddress,txtLat,txtLat2,txtAddress2,txtProductno,txtProduct,txtUnit,txtMount,txtVolume,txtTotal', b_ret.length, b_ret, 
-                                    'noa,noq,trandate,conn,tel,address,containerno1,containerno2,address2,productno,product,unit,mount,price,total',',txtConn,txtProductno,txtProduct,txtUnit,txtMount,txtTotal');
+                                    'txtOrdeno,txtNo2,txtBdate,txtConn,txtTel,txtAddress,txtLat,txtLat2,txtAddress2,txtProductno,txtProduct,txtUnit,txtMount,txtVolume,txtTotal,txtAddr,txtAddr2', b_ret.length, b_ret, 
+                                    'noa,noq,trandate,conn,tel,address,containerno1,containerno2,address2,productno,product,unit,mount,price,total,addr,addr2',',txtConn,txtProductno,txtProduct,txtUnit,txtMount,txtTotal');
                              }
                         break;
                     case q_name + '_s':
@@ -565,8 +565,8 @@
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:100px"><a>預計配送日期</a></td>
-					<td align="center" style="width:200px"><a>寄件人/電話<br>地址</a></td>
-					<td align="center" style="width:200px"><a>收件人/電話<br>地址</a></td>
+					<td align="center" style="width:200px"><a>寄件人/電話<br>SFD<br>地址</a></td>
+					<td align="center" style="width:200px"><a>收件人/電話<br>配送地<br>地址</a></td>
 					<td align="center" style="width:60px"><a>儲位</a></td>
 					<td align="center" style="width:100px"><a>品名</a></td>
 					<td align="center" style="width:40px"><a>單位</a></td>
@@ -576,7 +576,6 @@
 					<td align="center" style="width:60px"><a>車牌</a></td>
                     <td align="center" style="width:50px"><a>司機</a></td>
                     <td align="center" style="width:70px"><a>應付金額</a></td>
-                    <td align="center" style="width:65px"><a>車趟<br/>(1去2回)</a></td>
                     <td align="center" style="width:120px"><a>訂單編號</a></td>
 				</tr>
 				<tr class="data" style='background:#cad3ff;'>
@@ -591,17 +590,19 @@
                     <td>
                         <input type="text" id="txtConn.*" style="width:40%;" />
                         <input type="text" id="txtTel.*" style="width:53%;" />
+                        <input type="text" id="txtAddr.*" style="width:96%;" />
                         <input type="text" id="txtAddress.*" style="width:96%;" />
                     </td>
                     <td>
                         <input type="text" id="txtLat.*" style="width:40%;" />
                         <input type="text" id="txtLat2.*" style="width:53%;" />
+                        <input type="text" id="txtAddr2.*" style="width:96%;" />
                         <input type="text" id="txtAddress2.*" style="width:96%;" />
                     </td>
                     <td><input type="text" id="txtLng.*" style="width:95%;"/></td>
 					<td>
                         <input type="text" id="txtProductno.*" style="width:95%;" />
-                        <input type="text" id="txtProduct.*" style="width:95%;" />
+                        <input type="text" id="txtProduct.*" style="width:95%;" /> 
                         <input type="button" id="btnProduct.*" style="display:none;">
                         
                     </td>
@@ -619,7 +620,6 @@
                         <input type="button" id="btnDriver.*" style="display:none;"/>
                     </td>
                     <td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
-                    <td><input type="text" id="txtUnit2.*" style="width:95%;"/></td>
 					<td align="center"  id='hid_ordeno.*'>
                         <input type="text" id="txtOrdeno.*" style="width:95%;" />
                         <input type="text" id="txtNo2.*" style="width:30%;" />

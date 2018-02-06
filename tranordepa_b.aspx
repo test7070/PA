@@ -10,19 +10,23 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'view_tranvcces', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = ['noa'], as;
+            var q_name = 'view_tranordes', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = ['noa'], as;
             var t_sqlname = '';
             t_postname = q_name;
             var isBott = false;
             var txtfield = [], afield, t_data, t_htm;
             var i, s1;
-            brwCount2 = 20;
-            q_desc=1;
+            brwCount = -1;
+            brwCount2 = 0;
             $(document).ready(function() {
                 if (!q_paraChk())
                     return;
 
                 main();
+                $('#btnTop').hide();
+                $('#btnPrev').hide();
+                $('#btnNext').hide();
+                $('#btnBott').hide();
             });
 
             function main() {
@@ -45,6 +49,7 @@
 
             function refresh() {
                 _refresh();
+                q_bbsCount = abbs.length;
                 $('#checkAllCheckbox').click(function() {
                     $('input[type=checkbox][id^=chkSel]').each(function() {
                         var t_id = $(this).attr('id').split('_')[1];
@@ -80,47 +85,38 @@
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:25px" ><input type="checkbox" id="checkAllCheckbox"/></td>
 					<td align="center" style="width:25px;"> </td>
-					<th align="center"><a id=''>派車單號</a></th>
+					<th align="center"><a id=''>訂單編號</a></th>
 					<th align="center"><a id=''>配送日期</a></th>
-					<th align="center"><a id=''>SFD</a></th>
-                    <th align="center"><a id=''>配送地</a></th>
+					<th align="center"><a id=''>寄件人</a></th>
+                    <th align="center"><a id=''>收件人</a></th>
 					<th align="center"><a id=''>品名</a></th>
 					<th align="center"><a id=''>數量</a></th>
-					<th align="center"><a id=''>應收金額</a></th>
-					<th align="center"><a id=''>應付金額</a></th>
 				</tr>
 				<tr  style='background:#cad3ff;'>
-					<td style="width:25px;"><input id="chkSel.*" type="checkbox"/></td>
+					<td style="width:10px;"><input id="chkSel.*" type="checkbox"/></td>
 					<td style="width:25px;"><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td style="width:140px;" align="center">
-						<input id="txtNoa.*" type="text" style="float:left;width:95%;" readonly="readonly"/>
-						<input id="txtNoq.*" type="text" style="float:left;width:40%;"  readonly="readonly" />
+					<td style="width:150px;">
+						<input id="txtNoa.*" type="text" style="float:left;width:75%;" />
+						<input id="txtNoq.*" type="text" style="float:left;width:25%; text-align: right;"  readonly="readonly" />
 					</td>
-					<td style="width:80px;">
-                        <input id="txtEdate.*" type="text" style="float:left;width:95%;" readonly="readonly" />
+					<td style="width:90px;">
+                        <input id="txtTrandate.*" type="text" style="float:left;width:98%;" readonly="readonly" />
                     </td>
-                    <td style="width:170px;">
-                        <input id="txtConn.*" type="text" style="float:left;width:95%;" readonly="readonly" />
-                        <input id="txtAddr.*" type="text" style="float:left;width:95%;" readonly="readonly" />
-                        <input id="txtAddress.*" type="text" style="float:left;width:95%;" readonly="readonly" />
+					<td style="width:200px;">
+                        <input id="txtConn.*" type="text" style="float:left;width:25%;" readonly="readonly"/>
+                        <input id="txtAddr.*" type="text" style="float:left;width:75%;" readonly="readonly"/>
+                        <input id="txtAddress.*" type="text" style="float:left;width:100%;" readonly="readonly"/>
                     </td>
-                    <td style="width:170px;">
-                        <input id="txtlat.*" type="text" style="float:left;width:95%;" readonly="readonly" />
-                        <input id="txtAddr2.*" type="text" style="float:left;width:95%;" readonly="readonly" />
-                        <input id="txtAddress2.*" type="text" style="float:left;width:95%;" readonly="readonly" />
+					<td style="width:200px;">
+                        <input id="txtContainerno1.*" type="text" style="float:left;width:25%;" readonly="readonly"/>
+                        <input id="txtAddr2.*" type="text" style="float:left;width:75%;" readonly="readonly" />
+                        <input id="txtAddress2.*" type="text" style="float:left;width:100%;" readonly="readonly" />
                     </td>
-                    <td style="width:90px;">
+                    <td style="width:100px;">
+                        <input id="txtProductno.*" type="text" style="display:none;"/>
                         <input id="txtProduct.*" type="text" style="float:left;width:95%;" readonly="readonly" />
                     </td>
-					<td style="width:80px;">
-                        <input id="txtMount.*" type="text" style="float:left;text-align:right;width:95%;" readonly="readonly"/>
-                    </td>
-                    <td style="width:80px;">
-                       <input id="txtTotal.*" type="text" style="float:left;text-align:right;width:95%;" readonly="readonly" />
-                    </td>
-                    <td style="width:80px;">
-                       <input id="txtTotal2.*" type="text" style="float:left;text-align:right;width:95%;" readonly="readonly" />
-                    </td>
+                    <td style="width:70px;"><input id="txtMount.*" type="text" style="text-align:right;width:95%;" readonly="readonly"/></td>
 				</tr>
 			</table>
 		</div>

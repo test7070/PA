@@ -319,7 +319,7 @@
             }
             .dbbm {
                 float: left;
-                width: 750px;
+                width: 650px;
                 /*margin: -1px;
                  border: 1px black solid;*/
                 border-radius: 5px;
@@ -482,42 +482,39 @@
                         <td colspan="2"><input type="text" id="txtNoa" class="txt c1"/></td>
                         <td><span> </span><a id="lblDatea" class="lbl"> </a></td>
                         <td><input type="text" id="txtDatea" class="txt c1"/></td>
-                        <td><span> </span><a class="lbl">結案</a></td>
-                        <td><input type="checkbox" id="chkEnda" class="txt c1"/></td>
+                        <td><span> </span><a class="lbl">配送日期</a></td>
+                        <td><input type="text" id="txtDate1" class="txt c1"/></td>
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblCno" class="lbl btn">公司</a></td>
                         <td colspan="6">
                             <input type="text" id="txtCno" class="txt" style="width:30%;float: left; " />
-                            <input type="text" id="txtAcomp" class="txt" style="width:70%;float: left; " />
+                            <input type="text" id="txtAcomp" class="txt" style="width:68%;float: left; " />
                         </td>
                     </tr>
-                    <tr>
-                        <td><span> </span><a class="lbl">配送日期</a></td>
-                        <td colspan="2">
-                            <input type="text" id="txtDate1" class="txt" style="width:60%;float: left; "/>
-                        </td>
-                    </tr>
+                    
                     <tr>
                         <td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
                         <td colspan="6">
                             <input type="text" id="txtCustno" class="txt" style="width:30%;float: left; " />
-                            <input type="text" id="txtNick" class="txt" style="width:70%;float: left; " />
+                            <input type="text" id="txtNick" class="txt" style="width:68%;float: left; " />
                             <input type="text" id="txtComp" class="txt" style="display:none; " />
                         </td>
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblMemo" class="lbl"> </a></td>
                         <td colspan="6">
-                            <textarea id="txtMemo" class="txt c1" style="height:75px;"> </textarea>
+                            <textarea id="txtMemo" class="txt c1" style="height:75px;width:98%;"> </textarea>
                         </td>
                     </tr>
 
                     <tr>
                         <td><span> </span><a id="lblWorker" class="lbl"> </a></td>
-                        <td colspan="2"><input id="txtWorker" type="text"  class="txt c1"/></td>
+                        <td><input id="txtWorker" type="text"  class="txt c1"/></td>
                         <td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
-                        <td colspan="2"><input id="txtWorker2" type="text"  class="txt c1"/></td>
+                        <td><input id="txtWorker2" type="text"  class="txt c1"/></td>
+                        <td><span> </span><a class="lbl">結案</a></td>
+                        <td><input type="checkbox" id="chkEnda"/></td>
                     </tr>
                 </table>
             </div>
@@ -527,8 +524,8 @@
                 <tr style='color:white; background:#003366;' >
                     <td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
                     <td align="center" style="width:20px;"> </td>
-                    <td align="center" style="width:250px"><a>寄件人/電話<br>地址</a></td>
-					<td align="center" style="width:250px"><a>收件人/電話<br>地址</a></td>
+                    <td align="center" style="width:250px"><a>寄件人/電話<br>SFD<br>地址</a></td>
+					<td align="center" style="width:250px"><a>收件人/電話<br>配送地<br>地址</a></td>
                     <td align="center" style="width:200px"><a>品名</a></td>
                     <td align="center" style="width:50px"><a>單位</a></td>
                     <td align="center" style="width:70px"><a>數量</a></td>
@@ -545,11 +542,13 @@
                     <td>
                         <input type="text" id="txtConn.*" style="width:40%;">
                         <input type="text" id="txtTel.*" style="width:52%;">
+                        <input type="text" id="txtAddr.*" style="width:95%;" />
                         <input type="text" id="txtAddress.*" style="width:95%;" />
                     </td>
 					<td>
 					    <input type="text" id="txtContainerno1.*" style="width:40%;" />
                         <input type="text" id="txtContainerno2.*" style="width:52%;" />
+                        <input type="text" id="txtAddr2.*" style="width:95%;" />
                         <input type="text" id="txtAddress2.*" style="width:95%;" />
 
                     </td>
