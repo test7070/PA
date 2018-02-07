@@ -47,6 +47,11 @@
 				;
 
 			function sum() {
+			    if (!(q_cur == 1 || q_cur == 2))
+                    return;
+                for(var i=0;i<q_bbsCount;i++){
+                    $('#txtTotal_'+i).val(q_mul(q_float('txtPrice_' + i),q_float('txtMount_' + i)));
+                }
 				
 			}
 			
@@ -68,7 +73,7 @@
 			function mainPost() {
 				q_mask(bbmMask);
 				q_getFormat();
-				q_cmbParse("cmbTtype",'@,月結@月結','s');
+				q_cmbParse("cmbTtype",'@,1@月結','s');
 				$('#btnOrde').click(function(e){
                     t_custno=$('#txtAddrno').val();
                     var t_where = "custno='"+t_custno+"' and not exists(select noa,noq from view_trans where view_tranvcces.noa=ordeno and view_tranvcces.noq=caseno)";
@@ -98,6 +103,15 @@
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnProduct_'+n).click();
                     });
+                    
+                    $('#txtMount_' + i).change(function() {
+                            sum();
+                    });
+                    
+                    $('#txtPrice_' + i).change(function() {
+                            sum();
+                    });
+                    
 				}
 				_bbsAssign();
 				$('#tbbs').find('tr.data').children().hover(function(e){

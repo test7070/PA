@@ -71,7 +71,8 @@ declare @tmp table(
     gno nvarchar(1),
 	datea1 nvarchar(10),
 	datea2 nvarchar(10),
-	trandate nvarchar(10),
+	trandate nvarchar(50),
+	ttype nvarchar(50),
 	custno nvarchar(50),
 	comp nvarchar(50),
 	noa nvarchar(50),
@@ -84,7 +85,8 @@ declare @tmp table(
 	total float
 )
 insert @tmp
-select '0',a.datea,b.datea,b.trandate,a.addrno,a.addr,b.noa,b.noq,'',b.straddr,b.driverno,b.driver,b.endaddr,b.total
+select '0',a.datea,b.datea,b.trandate+case when isnull(b.trandate,'')!='' then ' '+caseuseno else caseuseno end
+,case b.ttype when 1 then '月結' end,a.addrno,a.addr,b.noa,b.noq,'',b.straddr,b.driverno,b.driver,b.endaddr,b.total
 from view_trans b
 left join view_tran a on a.noa=b.noa
 where (b.trandate between @t_bdate and @t_edate)
@@ -112,4 +114,96 @@ dbo.getComma(total,0)total
 ,* from @tmp
 order by custno,gno,datea1,datea2
 ;
-			
+--------------------------------------------------------------------------------------------------
+z_tran_pa3:--z_tran_pa3
+declare @t_bdate nvarchar(20)
+declare @t_edate nvarchar(20)
+set @t_bdate = case when '#non' = [2] then '' else [2] end
+set @t_edate = case when '#non' = [3] then CHAR(255) else [3] end
+
+declare @tmp table(
+	rr int,
+	crr int,
+	datea nvarchar(10),
+	carno nvarchar(50),
+	spec nvarchar(50),
+	mount float,
+	oilmount float
+)
+insert @tmp
+select ROW_NUMBER()over(partition by a.trandate order by a.carno),ROW_NUMBER()over(partition by a.carno,left(a.trandate,6) order by a.trandate)
+,trandate,a.carno,c.spec,a.mount,d.mount
+from view_trans a
+left join car2 b on a.carno=b.noa
+left join carspec c on c.noa=b.carspecno
+left join oil d on a.trandate=d.oildate and a.carno=b.carno
+where ISNULL(a.carno,'')!=''
+and (c.spec='營業大貨車' or c.spec='營業小貨車')
+and (a.trandate between @t_bdate and @t_edate)
+group by trandate,a.carno,unit2,c.spec,a.mount,d.mount,a.unit
+
+declare @result table(
+	gno nvarchar(1),
+	mon nvarchar(10),
+	datea float,--營業天數
+	carbc float,--大營業車輛
+	carsc float,--小營業車輛
+	tcarbc float,--大實動車輛
+	tcarsc float,--小實動車輛
+	bmount float,
+	smount float,
+	bmiles float,
+	smiles float,
+	bunit2 float,
+	sunit2 float
+)
+insert @result(gno,mon,datea)
+select '0',LEFT(datea,6),count(datea)
+from @tmp
+where rr=1
+group by LEFT(datea,6)
+
+
+update @result
+set tcarbc=b.counta
+from @result a
+outer apply(select count(carno)counta from @tmp where crr=1 and spec='營業大貨車' and a.mon=LEFT(datea,6))b
+
+update @result
+set tcarsc=b.counta
+from @result a
+outer apply(select count(carno)counta from @tmp where crr=1 and spec='營業小貨車' and a.mon=LEFT(datea,6))b
+
+update @result
+set carbc=a.bc
+from(select case when b.spec='營業大貨車' then count(a.noa) end bc 
+from car2 a left join carspec b on a.carspecno=b.noa where b.spec='營業大貨車' group by b.spec) a
+
+update @result
+set carsc=a.bc
+from(select case when b.spec='營業小貨車' then count(a.noa) end bc 
+from car2 a left join carspec b on a.carspecno=b.noa where b.spec='營業小貨車' group by b.spec) a
+
+update @result
+set bmount=b.bmount/a.tcarbc,smount=b.smount/a.tcarsc,bmiles=b.boilmount,smiles=b.soilmount
+from @result a
+outer apply(select 
+case when spec='營業大貨車' then SUM(isnull(mount,0)) end bmount
+,case when spec='營業小貨車' then SUM(isnull(mount,0)) end smount
+,case when spec='營業大貨車' then SUM(isnull(oilmount,0)) end boilmount
+,case when spec='營業小貨車' then SUM(isnull(oilmount,0)) end soilmount
+from @tmp where a.mon=LEFT(datea,6) group by LEFT(datea,6),spec)b
+
+update @result
+set bunit2=datea*2,sunit2=datea*2,bmiles=bmiles/tcarbc*4/datea*2,smiles=smiles/tcarsc*4/datea*2
+
+select 
+dbo.getComma(isnull(bmount,0),0)bmount
+,dbo.getComma(isnull(smount,0),0)smount
+,dbo.getComma(isnull(bmiles,0),1)bmiles
+,dbo.getComma(isnull(smiles,0),1)smiles
+,* from @result
+order by mon,gno
+;
+
+		
