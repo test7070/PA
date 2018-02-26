@@ -515,17 +515,11 @@
 					</tr>
 					<tr>
 						<td><span> </span><a id="lblDatea" class="lbl" > </a></td>
-						<td>
-						<input id="txtDatea" type="text" class="txt c1" />
-						</td>
+						<td><input id="txtDatea" type="text" class="txt c1" /></td>
 						<td><span> </span><a id="lblTimea" class="lbl" >配送日期</a></td>
-                        <td>
-                        <input id="txtTimea" type="text" class="txt c1" />
-                        </td>
+                        <td><input id="txtTimea" type="text" class="txt c1" /></td>
                         <td><span> </span><a id="lblNoa" class="lbl" > </a></td>
-                        <td>
-                        <input id="txtNoa" type="text" class="txt c1"/>
-                        </td>					
+                        <td><input id="txtNoa" type="text" class="txt c1"/></td>					
 					</tr>
 					<tr>
                         <td><span> </span><a id="lblCno" class="lbl btn" >公司</a></td>
@@ -560,15 +554,14 @@
 			</div>
 		</div>
 		<div class='dbbs' >
-			<table id="tbbs" class='tbbs' style="width:1700px;">
+			<table id="tbbs" class='tbbs' style="width:1800px;">
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:90px"><a>預計配送日期<br>客戶要求時間</a></td>
+					<td align="center" style="width:95px"><a>預計配送日期</a></td>
 					<td align="center" style="width:80px"><a>裝車日期<br>出車時間</a></td>
 					<td align="center" style="width:200px"><a>寄件人/電話<br>SFD<br>地址</a></td>
 					<td align="center" style="width:200px"><a>收件人/電話<br>配送地<br>地址</a></td>
-					<td align="center" style="width:80px"><a>中繼站</a></td>
 					<td align="center" style="width:60px"><a>儲位</a></td>
 					<td align="center" style="width:100px"><a>品名</a></td>
 					<td align="center" style="width:40px"><a>單位</a></td>
@@ -587,10 +580,7 @@
 						<input type="text" id="txtNoq.*" style="display:none;"/>
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-                    <td>
-                        <input type="text" id="txtBdate.*" style="width:95%;" />
-                        <input type="text" id="txtTime2.*" style="width:95%;" />
-                    </td>
+                    <td><input type="text" id="txtBdate.*" style="width:95%;" /></td>
                     <td>
                         <input type="text" id="txtEdate.*" style="width:95%;" />
                         <input type="text" id="txtTime1.*" style="width:95%;" />
@@ -606,9 +596,6 @@
                         <input type="text" id="txtLat2.*" style="width:53%;" />
                         <input type="text" id="txtAddr2.*" style="width:96%;" />
                         <input type="text" id="txtAddress2.*" style="width:96%;" />
-                    </td>
-                    <td>
-                        <input type="text" id="txtAddr3.*" style="width:96%;" />
                     </td>
                     <td><input type="text" id="txtLng.*" style="width:95%;"/></td>
 					<td>

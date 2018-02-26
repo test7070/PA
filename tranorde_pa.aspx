@@ -492,7 +492,6 @@
                             <input type="text" id="txtAcomp" class="txt" style="width:68%;float: left; " />
                         </td>
                     </tr>
-                    
                     <tr>
                         <td><span> </span><a id="lblCust" class="lbl btn"> </a></td>
                         <td colspan="6">
@@ -500,6 +499,12 @@
                             <input type="text" id="txtNick" class="txt" style="width:68%;float: left; " />
                             <input type="text" id="txtComp" class="txt" style="display:none; " />
                         </td>
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id="lblSo_pa" class="lbl">帳單編號</a></td>
+                        <td colspan="2"><input id="txtSo" type="text" class="txt c1"/></td>
+                        <td><span> </span><a id="lblStype_pa" class="lbl">JOB TYPE</a></td>
+                        <td><input id="txtStype" type="text" class="txt c1"/></td>
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -524,6 +529,7 @@
                 <tr style='color:white; background:#003366;' >
                     <td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
                     <td align="center" style="width:20px;"> </td>
+                    <td align="center" style="width:90px"><a>帳單日期</a></td>
                     <td align="center" style="width:250px"><a>寄件人/電話<br>SFD<br>地址</a></td>
 					<td align="center" style="width:250px"><a>收件人/電話<br>配送地<br>地址</a></td>
                     <td align="center" style="width:200px"><a>品名</a></td>
@@ -539,6 +545,7 @@
                         <input type="text" id="txtNoq.*" style="display:none;"/>
                     </td>
                     <td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+                    <td><input type="text" id="txtDate1.*" style="width:95%;" /></td>
                     <td>
                         <input type="text" id="txtConn.*" style="width:40%;">
                         <input type="text" id="txtTel.*" style="width:52%;">
