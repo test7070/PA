@@ -205,5 +205,59 @@ dbo.getComma(isnull(bmount,0),0)bmount
 ,* from @result
 order by mon,gno
 ;
+---------------------------------------------------------------------------------------------
+z_tran_pa4:--z_tran_pa4
+declare @t_bcno nvarchar(20)
+declare @t_ecno nvarchar(20)
+declare @t_bcustno nvarchar(20)
+declare @t_ecustno nvarchar(20)
+declare @t_bvdate nvarchar(20)
+declare @t_evdate nvarchar(20)
+declare @t_bvnoa nvarchar(20)
+declare @t_evnoa nvarchar(20)
+declare @t_stype nvarchar(20)
+set @t_bcno = case when '#non' = [6] then '' else [6] end
+set @t_ecno = case when '#non' = [7] then CHAR(255) else [7] end
+set @t_bcustno = case when '#non' = [8] then '' else [8] end
+set @t_ecustno = case when '#non' = [9] then CHAR(255) else [9] end
+set @t_bvdate = case when '#non' = [16] then '' else [16] end
+set @t_evdate = case when '#non' = [17] then CHAR(255) else [17] end
+set @t_bvnoa = case when '#non' = [18] then '' else [19] end
+set @t_evnoa = case when '#non' = [19] then CHAR(255) else [19] end
+set @t_stype = case when '#non' = [20] then '' else [20] end
 
+declare @tmp table(
+	gno nvarchar(1),
+	custno nvarchar(50),
+	comp nvarchar(100),
+	rr int,
+	typea nvarchar(50),
+	datea nvarchar(10),
+	vno nvarchar(50),
+	total float,
+	memo nvarchar(max)
+)
+insert @tmp
+select '0',a.custno,a.comp,'',isnull(a.stype,''),b.date1,isnull(a.so,''),SUM(isnull(b.total,0)),a.memo
+from view_tranordes b left join view_tranorde a on a.noa=b.noa
+where (a.cno between @t_bcno and @t_ecno)
+and (a.custno between @t_bcustno and @t_ecustno)
+and (a.so between @t_bvnoa and @t_evnoa)
+and (b.date1 between @t_bvdate and @t_evdate)
+and (len(@t_stype)=0 or a.stype=@t_stype)
+group by a.custno,a.comp,isnull(a.stype,''),b.date1,isnull(a.so,''),a.memo
+
+insert @tmp(custno,gno,total)
+select custno,'1',SUM(total)
+from @tmp
+group by custno
+
+insert @tmp(custno,gno)
+select custno,'2'
+from @tmp
+group by custno
+
+select * from @tmp
+order by custno,gno
+;
 		

@@ -75,7 +75,7 @@
                         $('#btnProduct_'+n).click();
                     });
                     
-                    $('#txtConn_' + i).focusout(function (){
+                    $('#txtDate1_' + i).focusout(function (){
                         var s1 = $(this).val();
                             if (s1.length == 1 && s1 == "=") {
                                 t_IdSeq = -1;  /// 要先給  才能使用 q_bodyId()
@@ -101,10 +101,16 @@
                                     $('#txtAddress2_' + b_seq).val(s8);
                                     var s9 = $('#txtUnit_' + i).val();
                                     $('#txtUnit_' + b_seq).val(s9);
+                                    var s10 = $('#txtDate1_' + i).val();
+                                    $('#txtDate1_' + b_seq).val(s10);
+                                    var s11 = $('#txtAddr_' + i).val();
+                                    $('#txtAddr_' + b_seq).val(s11);
+                                    var s12 = $('#txtAddr2_' + i).val();
+                                    $('#txtAddr2_' + b_seq).val(s10);
                                 }
                             }
                     });
-                    $('#txtConn_' + i).focus(function () {
+                    $('#txtDate1_' + i).focus(function () {
                             if (!$(this).val())
                                 q_msg($(this), '=號複製上一筆摘要');
                     });
