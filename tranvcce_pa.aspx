@@ -199,6 +199,7 @@
             }
 
             function btnPrint() {
+                q_box('z_tran_pa.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
             }
 
             function wrServer(key_value) {
@@ -554,14 +555,15 @@
 			</div>
 		</div>
 		<div class='dbbs' >
-			<table id="tbbs" class='tbbs' style="width:1780px;">
+			<table id="tbbs" class='tbbs' style="width:1980px;">
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:110px"><a>預計配送日期<br>裝車日期</a></td>
-					<td align="center" style="width:200px"><a>寄件人 / 電話<br>SFD / SFD擔當<br>地址<br>取貨日期時間</a></td>
+					<td align="center" style="width:200px"><a>寄件人 / 電話<br>SFD<br>地址<br>取貨日期時間</a></td>
 					<td align="center" style="width:200px"><a>收件人 / 電話<br>配送地<br>地址<br>送達日期時間</a></td>
-					<td align="center" style="width:60px"><a>儲位</a></td>
+					<td align="center" style="width:85px"><a>SFD擔當 / 倉庫聯絡人</a></td>
+					<td align="center" style="width:70px"><a>儲位</a></td>
 					<td align="center" style="width:100px"><a>品名</a></td>
 					<td align="center" style="width:40px"><a>單位</a></td>
 					<td align="center" style="width:70px"><a>數量</a></td>
@@ -576,6 +578,7 @@
                     <td align="center" style="width:70px"><a>車型</a></td>
                     <td align="center" style="width:100px"><a>準備工具<br>助理需求</a></td>               
                     <td align="center" style="width:200px"><a>訂單編號<br>銷貨單單號</a></td>
+                    <td align="center" style="width:100px"><a>備註</a></td>
 				</tr>
 				<tr class="data" style='background:#cad3ff;'>
 					<td align="center">
@@ -586,12 +589,10 @@
                     <td><input type="text" id="txtBdate.*" style="width:95%;" />
                         <input type="text" id="txtEdate.*" style="width:95%;" />
                     </td>
-                    
                     <td>
                         <input type="text" id="txtConn.*" style="width:40%;" />
                         <input type="text" id="txtTel.*" style="width:53%;" />
-                        <input type="text" id="txtAddr.*" style="width:60%;" />
-                        <input type="text" id="txtLng2.*" style="width:33%;"/>
+                        <input type="text" id="txtAddr.*" style="width:98%;" />
                         <input type="text" id="txtAddress.*" style="width:98%;" />
                         <input type="text" id="txtTime1.*" style="width:98%;" />
                     </td>
@@ -602,6 +603,7 @@
                         <input type="text" id="txtAddress2.*" style="width:98%;" />
                         <input type="text" id="txtTime2.*" style="width:98%;" />
                     </td>
+                    <td><input type="text" id="txtLng2.*" style="width:95%;"/></td>
                     <td><input type="text" id="txtLng.*" style="width:95%;"/></td>
 					<td>
                         <input type="text" id="txtProductno.*" style="width:95%;" />
@@ -634,6 +636,7 @@
                         <input type="text" id="txtNo2.*" style="width:33%;" />
                         <input type="text" id="txtAllowcar.*" style="width:98%;"/>
                     </td>
+                    <td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
 				</tr>
 			</table>
 		</div>

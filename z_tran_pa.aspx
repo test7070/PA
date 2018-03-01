@@ -15,6 +15,7 @@
 		<script src="css/jquery/ui/jquery.ui.widget.js"> </script>
 		<script src="css/jquery/ui/jquery.ui.datepicker_tw.js"> </script>
 		<script type="text/javascript">
+           var xspecItem = '';
            if (location.href.indexOf('?') < 0) {
 				location.href = location.href + "?;;;;" + ((new Date()).getUTCFullYear() - 1911);
 			}
@@ -74,6 +75,7 @@
                     },{
                         type : '6',
                         name : 'xstype', //[20]
+                        value : xspecItem.split(',')
                     }]
                     });
                 q_popAssign();
@@ -96,6 +98,10 @@
                 selectbox.id = "combXstype";
                 selectbox.style.cssText = "width:20px;font-size: medium;";
                 tmp.parentNode.appendChild(selectbox, tmp);
+                
+                $('#combXstype').change(function() {
+                    $('#txtXstype').val($('#combXstype').find("option:selected").text());
+                });
                 
                  var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
@@ -122,11 +128,35 @@
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
 	                $('#txtVdate2').val(t_year+'/'+t_month+'/'+t_day);
 	                $('#txtXmon2').val(t_year+'/'+t_month);
-	                }
+	                
+	                q_gt('view_tranorde', '1=1 ', 0, 0, 0, "view_tranorde");
+	        }
 
             function q_boxClose(s2) {
             }
             function q_gtPost(t_name) {
+                switch (t_name) {
+                    case 'view_tranorde':
+                        var as = _q_appendData("view_tranorde", "", true);
+                        xspecItem = " @ ";
+                        for ( i = 0; i < as.length; i++) {
+                                var txspecItem = xspecItem.split(',');
+                                var t_exists = false;
+                                for (var j = 0; j < txspecItem.length; j++) {
+                                    if (as[i].stype == txspecItem[j]) {
+                                        t_exists = true;
+                                        break;
+                                    }
+                                }
+                                if (!t_exists)
+                                    xspecItem += "," + as[i].stype;
+                                if (xspecItem.length != 0) {
+                                    $('#combXstype').empty();
+                                    q_cmbParse("combXstype", xspecItem);
+                                }
+                        }
+                        break;
+                }
             }
 		</script>
 	</head>
