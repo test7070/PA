@@ -21,7 +21,7 @@
             var bbmNum = [];
             var bbsNum = [['txtMount', 10, 0, 1],['txtVolume', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTotal2', 10, 0, 1]];
             var bbmMask = [['txtTimea', '999/99/99']];
-            var bbsMask = [['txtBdate', '999/99/99'],['txtEdate', '999/99/99']];
+            var bbsMask = [['txtBdate', '999/99/99'],['txtEdate', '999/99/99'],['txtTime3', '99:99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -559,7 +559,8 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:110px"><a>預計配送日期<br>裝車日期</a></td>
+					<td align="center" style="width:105px"><a>預計配送日期<br>裝車日期</a></td>
+					<td align="center" style="width:70px"><a>出車時間</a></td>
 					<td align="center" style="width:200px"><a>寄件人 / 電話<br>SFD<br>地址<br>取貨日期時間</a></td>
 					<td align="center" style="width:200px"><a>收件人 / 電話<br>配送地<br>地址<br>送達日期時間</a></td>
 					<td align="center" style="width:85px"><a>SFD擔當 / 倉庫聯絡人</a></td>
@@ -589,6 +590,7 @@
                     <td><input type="text" id="txtBdate.*" style="width:95%;" />
                         <input type="text" id="txtEdate.*" style="width:95%;" />
                     </td>
+                    <td><input type="text" id="txtTime3.*" style="width:95%;" /> </td>
                     <td>
                         <input type="text" id="txtConn.*" style="width:40%;" />
                         <input type="text" id="txtTel.*" style="width:53%;" />
