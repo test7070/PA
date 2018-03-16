@@ -20,8 +20,8 @@
             var q_readonlys = ['txtOrdeno', 'txtNo2'];
             var bbmNum = [];
             var bbsNum = [['txtMount', 10, 0, 1],['txtVolume', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTotal2', 10, 0, 1]];
-            var bbmMask = [['txtTimea', '999/99/99']];
-            var bbsMask = [['txtBdate', '999/99/99'],['txtEdate', '999/99/99'],['txtTime3', '99:99']];
+            var bbmMask = [['txtTimea', '9999/99/99']];
+            var bbsMask = [['txtBdate', '9999/99/99'],['txtEdate', '9999/99/99'],['txtTime3', '99:99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -63,11 +63,16 @@
 
             function mainPost() {
                 q_mask(bbmMask);
+                
+                if(r_len==4){           
+                    $.datepicker.r_len=4;
+                }
+                
                 $('#txtDatea').datepicker();
                 $('#txtTimea').datepicker();
                 $('#textBdate').datepicker();
                 $('#textEdate').datepicker();
-                
+
                 $('#btnOrde').click(function(e){
                     t_custno=$('#txtAddrno').val();
                     t_cno=$('#txtCno').val();

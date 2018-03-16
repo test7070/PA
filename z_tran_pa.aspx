@@ -79,13 +79,20 @@
                     }]
                     });
                 q_popAssign();
-                 $('#txtDate1').mask('999/99/99');
+                
+                var r_1911=1911;
+                if(r_len==4){           
+                    $.datepicker.r_len=4;
+                    r_1911=0
+                }
+                
+                 $('#txtDate1').mask('9999/99/99');
 	             $('#txtDate1').datepicker();
-	             $('#txtDate2').mask('999/99/99');
+	             $('#txtDate2').mask('9999/99/99');
 	             $('#txtDate2').datepicker();
-	             $('#txtVdate1').mask('999/99/99');
+	             $('#txtVdate1').mask('9999/99/99');
                  $('#txtVdate1').datepicker();
-	             $('#txtVdate2').mask('999/99/99');
+	             $('#txtVdate2').mask('9999/99/99');
                  $('#txtVdate2').datepicker();
                  
                 var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
@@ -106,7 +113,7 @@
                  var t_date,t_year,t_month,t_day;
 	                t_date = new Date();
 	                t_date.setDate(1);
-	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_date.getUTCFullYear()-r_1911;
 	                t_year = t_year>99?t_year+'':'0'+t_year;
 	                t_month = t_date.getUTCMonth()+1;
 	                t_month = t_month>9?t_month+'':'0'+t_month;
@@ -119,7 +126,7 @@
 	                t_date = new Date();
 	                t_date.setDate(35);
 	                t_date.setDate(0);
-	                t_year = t_date.getUTCFullYear()-1911;
+	                t_year = t_date.getUTCFullYear()-r_1911;
 	                t_year = t_year>99?t_year+'':'0'+t_year;
 	                t_month = t_date.getUTCMonth()+1;
 	                t_month = t_month>9?t_month+'':'0'+t_month;

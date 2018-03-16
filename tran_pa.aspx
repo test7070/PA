@@ -73,6 +73,9 @@
 			function mainPost() {
 				q_mask(bbmMask);
 				q_getFormat();
+				if(r_len==4){           
+                    $.datepicker.r_len=4;
+                }
 				q_cmbParse("cmbTtype",'@,1@月結','s');
 				$('#btnOrde').click(function(e){
                     t_custno=$('#txtAddrno').val();

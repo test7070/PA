@@ -22,7 +22,7 @@
             var bbsMask = new Array(['txtTrandate', '999/99/99'],['txtDate1', '999/99/99'],['txtDate2', '999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']);
             var bbtMask = new Array(); 
             var bbmNum = new Array();
-            var bbmMask = new Array(['txtDatea', '999/99/99'],['txtDate1', '999/99/99'],['txtDate2', '999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']);
+            var bbmMask = new Array(['txtDatea', '9999/99/99'],['txtDate1', '9999/99/99'],['txtDate2', '999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']);
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -31,7 +31,7 @@
             q_alias = '';
             q_desc = 1;
             //q_xchg = 1;
-            brwCount2 = 9;
+            brwCount2 = 7;
             aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,memo2', 'txtCustno,txtComp,txtNick,txtMemo', 'cust_b.aspx'] 
                 ,['txtAddrno', 'lblAddr_js', 'addr2_wj', 'custno,cust,address', 'txtAddrno,txtAddr,txtBoat', 'addr2_b2.aspx']
                 ,['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
@@ -61,6 +61,10 @@
             }
             function mainPost() {
                 q_mask(bbmMask);
+                
+                if(r_len==4){           
+                    $.datepicker.r_len=4;
+                }
             }
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
@@ -229,6 +233,7 @@
                     $('#txtDatea').datepicker('destroy');
                 }else{
                     $('#txtDatea').datepicker();
+                    $('#txtDate1').datepicker();
                 }
             }
             function btnMinus(id) {

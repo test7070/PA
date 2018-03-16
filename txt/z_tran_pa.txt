@@ -86,7 +86,7 @@ declare @tmp table(
 )
 insert @tmp
 select '0',a.datea,b.datea,b.trandate+case when isnull(b.trandate,'')!='' then ' '+caseuseno else caseuseno end
-,case b.ttype when 1 then '月結' end,a.addrno,a.addr,b.noa,b.noq,'',b.straddr,b.driverno,b.driver,b.endaddr,b.total
+,case b.ttype when '1' then '月結' end,a.addrno,a.addr,b.noa,b.noq,'',b.straddr,b.driverno,b.driver,b.endaddr,b.total
 from view_trans b
 left join view_tran a on a.noa=b.noa
 where (b.trandate between @t_bdate and @t_edate)
