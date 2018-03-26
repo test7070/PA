@@ -16,7 +16,7 @@
         <script type="text/javascript">
             q_tables = 't';
             var q_name = "tranorde";
-            var q_readonly = ['txtNoa','txtWorker', 'txtWorker2','txtBoat'];
+            var q_readonly = ['txtWorker', 'txtWorker2','txtBoat'];
             var q_readonlys = [];
             var bbsNum = new Array(['txtLengthb', 10, 2, 1],['txtWidth', 10, 2, 1],['txtHeight', 10, 2, 1],['txtVolume', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTheight', 10, 0, 1],['txtTvolume', 10, 0, 1],['txtMount', 10, 0, 1],['txtPrice', 10, 2, 1],['txtMoney', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotal2', 10, 0, 1],['txtTotal3', 10, 0, 1]);
             var bbsMask = new Array(['txtTrandate', '999/99/99'],['txtDate1', '999/99/99'],['txtDate2', '999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']);
@@ -151,7 +151,7 @@
                 q_nowf();
                 as['caseno'] = abbm2['cno'];
                 as['time1'] = abbm2['acomp'];
-                as['addrno3'] = abbm2['custno'];
+                as['custno'] = abbm2['custno'];
                 as['addr3'] = abbm2['comp'];
                 as['trandate'] = abbm2['date1'];
                 return true;
@@ -176,7 +176,6 @@
             }
             function btnIns() {
                 _btnIns();
-                $('#txtNoa').val('AUTO');
                 $('#txtDatea').val(q_date());
                 $('#chkEnda').prop('checked',false);
                 $('#txtDatea').focus();
@@ -208,10 +207,10 @@
                     alert("error: btnok!");
                 }
                 var t_noa = trim($('#txtNoa').val());
-                var t_date = trim($('#txtDatea').val());
+                /*var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
                     q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tranorde') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-                else
+                else*/
                     wrServer(t_noa);
             }
             function wrServer(key_value) {

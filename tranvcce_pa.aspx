@@ -76,8 +76,11 @@
                 $('#btnOrde').click(function(e){
                     t_custno=$('#txtAddrno').val();
                     t_cno=$('#txtCno').val();
-                    var t_where = "(caseno='"+t_cno+"') and (addrno3='"+t_custno+"') and not exists(select noa,noq from view_tranvcces where a.noa=ordeno and a.noq=no2) ";
-                    q_box("tranordepa_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranorde_tranvcce', "100%", "100%", "");
+                    t_datea=$('#txtTimea').val();
+                    var t_where ='';
+                    q_box("tranordepa_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({cno:t_cno,custno:t_custno,trandate:t_datea,page:'tranvcce_pa'}), "tranorde_tranvcce", "95%", "95%", '');
+                    /*var t_where = "(caseno='"+t_cno+"') and (custno='"+t_custno+"') and (trandate='"+t_datea+"') ";
+                    q_box("tranordepa_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranorde_tranvcce', "100%", "100%", "");*/
                 });
 
             }

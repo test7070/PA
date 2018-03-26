@@ -10,31 +10,33 @@
 		<script src="../script/qbox.js" type="text/javascript"></script>
 		<link href="../qbox.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript">
-            var q_name = 'view_tranordes', t_bbsTag = 'tbbs', t_content = " ", afilter = [], bbsKey = ['noa'], as;
-            var t_sqlname = '';
-            t_postname = q_name;
+            var q_name = "tranorde_tranvcce", t_content = "where=^^['','','')", afilter = [], bbsKey = ['noa','no2'], as;
             var isBott = false;
-            var txtfield = [], afield, t_data, t_htm;
-            var i, s1;
-            brwCount = -1;
-            brwCount2 = 0;
+            var txtfield = [], afield, t_data, t_htm, t_bbsTag = 'tbbs';
+
             $(document).ready(function() {
                 if (!q_paraChk())
                     return;
-
-                main();
                 $('#btnTop').hide();
                 $('#btnPrev').hide();
                 $('#btnNext').hide();
                 $('#btnBott').hide();
+                
+                main();
             });
-
             function main() {
                 if (dataErr) {
                     dataErr = false;
                     return;
                 }
-                mainBrow(6, t_content, t_sqlname, t_postname, r_accy);
+                 var t_para = new Array();
+                try{
+                    t_para = JSON.parse(decodeURIComponent(q_getId()[5]));
+                    t_content = t_content = "where=^^['"+t_para.trandate+"','"+t_para.custno+"','"+t_para.cno+"')^^";
+                }catch(e){
+                }    
+                brwCount = -1;
+                mainBrow(0, t_content);
             }
 
 			function mainPost(){
@@ -96,27 +98,27 @@
 					<td style="width:10px;"><input id="chkSel.*" type="checkbox"/></td>
 					<td style="width:25px;"><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
 					<td style="width:150px;">
-						<input id="txtNoa.*" type="text" style="float:left;width:75%;" />
-						<input id="txtNoq.*" type="text" style="float:left;width:25%; text-align: right;"  readonly="readonly" />
+						<input id="txtNoa.*" type="text" style="float:left;width:75%; background: rgb(237, 237, 238);" readonly="readonly" />
+						<input id="txtNoq.*" type="text" style="float:left;width:25%; text-align: right; background: rgb(237, 237, 238);"  readonly="readonly" />
 					</td>
 					<td style="width:90px;">
-                        <input id="txtTrandate.*" type="text" style="float:left;width:98%;" readonly="readonly" />
+                        <input id="txtTrandate.*" type="text" style="float:left;width:98%; background: rgb(237, 237, 238);" readonly="readonly" />
                     </td>
 					<td style="width:200px;">
-                        <input id="txtConn.*" type="text" style="float:left;width:25%;" readonly="readonly"/>
-                        <input id="txtAddr.*" type="text" style="float:left;width:75%;" readonly="readonly"/>
-                        <input id="txtAddress.*" type="text" style="float:left;width:100%;" readonly="readonly"/>
+                        <input id="txtConn.*" type="text" style="float:left;width:25%; background: rgb(237, 237, 238);" readonly="readonly"/>
+                        <input id="txtAddr.*" type="text" style="float:left;width:75%; background: rgb(237, 237, 238);" readonly="readonly"/>
+                        <input id="txtAddress.*" type="text" style="float:left;width:100%; background: rgb(237, 237, 238);" readonly="readonly"/>
                     </td>
 					<td style="width:200px;">
-                        <input id="txtContainerno1.*" type="text" style="float:left;width:25%;" readonly="readonly"/>
-                        <input id="txtAddr2.*" type="text" style="float:left;width:75%;" readonly="readonly" />
-                        <input id="txtAddress2.*" type="text" style="float:left;width:100%;" readonly="readonly" />
+                        <input id="txtContainerno1.*" type="text" style="float:left;width:25%; background: rgb(237, 237, 238);" readonly="readonly"/>
+                        <input id="txtAddr2.*" type="text" style="float:left;width:75%; background: rgb(237, 237, 238);" readonly="readonly" />
+                        <input id="txtAddress2.*" type="text" style="float:left;width:100%; background: rgb(237, 237, 238);" readonly="readonly" />
                     </td>
                     <td style="width:100px;">
-                        <input id="txtProductno.*" type="text" style="display:none;"/>
-                        <input id="txtProduct.*" type="text" style="float:left;width:95%;" readonly="readonly" />
+                        <input id="txtProductno.*" type="text" style="display:none; background: rgb(237, 237, 238);"/>
+                        <input id="txtProduct.*" type="text" style="float:left;width:95%; background: rgb(237, 237, 238);" readonly="readonly" />
                     </td>
-                    <td style="width:70px;"><input id="txtMount.*" type="text" style="text-align:right;width:95%;" readonly="readonly"/></td>
+                    <td style="width:70px;"><input id="txtMount.*" type="text" style="text-align:right;width:95%; background: rgb(237, 237, 238);" readonly="readonly"/></td>
 				</tr>
 			</table>
 		</div>
