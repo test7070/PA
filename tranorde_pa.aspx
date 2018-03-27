@@ -203,6 +203,10 @@
                     $('#txtWorker').val(r_name);
                 }else if(q_cur ==2){
                     $('#txtWorker2').val(r_name);
+                    var t_qdate = q_date();
+                    var t_noa = $('#txtNoa').val();
+                    var t_rlen = r_len;
+                    q_func('qtxt.query.tranorde', 'tranorde_pa.txt,chkorde,' + encodeURI(t_qdate) + ';'+ encodeURI(t_noa)+ ';'+ encodeURI(r_len));  
                 }else{
                     alert("error: btnok!");
                 }
@@ -277,6 +281,9 @@
             
             function q_funcPost(t_func, result) {
                 switch(t_func) {
+                    case 'qtxt.query.tranorde':
+                        alert('已通知!');
+                        break;
                     default:
                         break;
                 }

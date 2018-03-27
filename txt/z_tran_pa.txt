@@ -207,6 +207,8 @@ order by mon,gno
 ;
 ---------------------------------------------------------------------------------------------
 z_tran_pa4:--z_tran_pa4
+declare @t_bdate nvarchar(20)
+declare @t_edate nvarchar(20)
 declare @t_bcno nvarchar(20)
 declare @t_ecno nvarchar(20)
 declare @t_bcustno nvarchar(20)
@@ -216,6 +218,10 @@ declare @t_evdate nvarchar(20)
 declare @t_bvnoa nvarchar(20)
 declare @t_evnoa nvarchar(20)
 declare @t_stype nvarchar(20)
+declare @t_bodate nvarchar(20)
+declare @t_eodate nvarchar(20)
+set @t_bdate = case when '#non' = [2] then '' else [2] end
+set @t_edate = case when '#non' = [3] then CHAR(255) else [3] end 
 set @t_bcno = case when '#non' = [6] then '' else [6] end
 set @t_ecno = case when '#non' = [7] then CHAR(255) else [7] end
 set @t_bcustno = case when '#non' = [8] then '' else [8] end
@@ -224,7 +230,9 @@ set @t_bvdate = case when '#non' = [16] then '' else [16] end
 set @t_evdate = case when '#non' = [17] then CHAR(255) else [17] end
 set @t_bvnoa = case when '#non' = [18] then '' else [19] end
 set @t_evnoa = case when '#non' = [19] then CHAR(255) else [19] end
-set @t_stype = case when '#non' = [20] then '' else [20] end
+set @t_stype = case when '#non' = [22] then '' else [22] end
+set @t_bodate = case when '#non' = [20] then '' else [20] end
+set @t_eodate = case when '#non' = [21] then CHAR(255) else [21] end 
 
 declare @tmp table(
 	gno nvarchar(1),
@@ -237,15 +245,17 @@ declare @tmp table(
 	total float,
 	memo nvarchar(max)
 )
-insert @tmp
-select '0',a.custno,a.comp,'',isnull(a.stype,''),b.date1,isnull(a.so,''),SUM(isnull(b.total,0)),a.memo
-from view_tranordes b left join view_tranorde a on a.noa=b.noa
-where (a.cno between @t_bcno and @t_ecno)
-and (a.custno between @t_bcustno and @t_ecustno)
-and (a.so between @t_bvnoa and @t_evnoa)
-and (b.date1 between @t_bvdate and @t_evdate)
-and (len(@t_stype)=0 or a.stype=@t_stype)
-group by a.custno,a.comp,isnull(a.stype,''),b.date1,isnull(a.so,''),a.memo
+insert @tmp 
+select '0',a.custno,a.comp,'',isnull(a.stype,''),b.date1,isnull(a.so,''),SUM(isnull(b.total,0)),a.memo 
+from view_tranordes b left join view_tranorde a on a.noa=b.noa 
+where (a.cno between @t_bcno and @t_ecno) 
+and (a.custno between @t_bcustno and @t_ecustno) 
+and (a.so between @t_bvnoa and @t_evnoa) 
+and (b.date1 between @t_bvdate and @t_evdate) 
+and (a.date1 between @t_bdate and @t_edate)
+and (a.datea between @t_bodate and @t_eodate)
+and (len(@t_stype)=0 or a.stype=@t_stype) 
+group by a.custno,a.comp,isnull(a.stype,''),b.date1,isnull(a.so,''),a.memo 
 
 update a
 set rr=rx
@@ -456,43 +466,231 @@ set @t_ecno = case when '#non' = '#non' then CHAR(255) else '#non' end
 set @t_bcustno = case when '#non' = '#non' then '' else '#non' end 
 set @t_ecustno = case when '#non' = '#non' then CHAR(255) else '#non' end 
 
+declare @tmp table( 
+	gno nvarchar(1), 
+	rr int, 
+	recno int, 
+	page int, 
+	Timea nvarchar(50), 
+	bd1 nvarchar(50), 
+	carno nvarchar(50), 
+	driverno nvarchar(50), 
+	driver nvarchar(50), 
+	time1 nvarchar(100), 
+	paths nvarchar(max), 
+	ed1 nvarchar(50), 
+	addr1 nvarchar(100), 
+	addr2 nvarchar(100), 
+	mount float, 
+	unit nvarchar(50), 
+	time2 nvarchar(100), 
+	memo nvarchar(max) 
+) 
+insert @tmp 
+select '0','','','',a.timea,b.bdate,b.carno,b.driverno,b.driver,b.time3,b.paths,b.edate,b.addr,b.addr2,b.mount,b.unit,b.time2,b.memo 
+from view_tranvcces b left join view_tranvcce a on a.noa=b.noa 
+where (a.timea between @t_bdate and @t_edate) 
+and (a.cno between @t_bcno and @t_ecno) 
+and (a.addrno between @t_bcustno and @t_ecustno) 
+
+update a 
+set rr=rx,gno=case when rx='1' then 1 else 2 end 
+from(select ROW_NUMBER()over(partition by timea,addr1 order by Timea,addr1,bd1)rx,rr,gno from @tmp)a 
+
+insert @tmp(gno,rr,Timea,page,addr1) 
+select '3',99999,Timea,page,addr1 
+from @tmp 
+group by Timea,page,addr1
+
+insert @tmp(gno,Timea,page,addr1) 
+select '4',Timea,page,char(255) 
+from @tmp 
+group by Timea,page 
+
+select 
+* from @tmp 
+order by Timea,addr1,rr
+;
+------------------------------------------------------------------------------------------------------------
+z_tran_pa9:--z_tran_pa9
+declare @t_bdate nvarchar(20)
+declare @t_edate nvarchar(20)
+declare @t_bcno nvarchar(20)
+declare @t_ecno nvarchar(20)
+declare @t_bcustno nvarchar(20)
+declare @t_ecustno nvarchar(20)
+declare @t_bproductno nvarchar(20)
+declare @t_eproductno nvarchar(20)
+declare @t_show nvarchar(20)
+set @t_bdate = case when '#non' = [2] then '' else [2] end
+set @t_edate = case when '#non' = [3] then CHAR(255) else [3] end
+set @t_bcno = case when '#non' = [6] then '' else [6] end
+set @t_ecno = case when '#non' = [7] then CHAR(255) else [7] end
+set @t_bcustno = case when '#non' = [8] then '' else [8] end
+set @t_ecustno = case when '#non' = [9] then CHAR(255) else [9] end
+set @t_bproductno = case when '#non' = [10] then '' else [10] end
+set @t_eproductno = case when '#non' = [11] then CHAR(255) else [11] end
+set @t_show = case when '#non' = [23] then '' else [23] end
+
+
 declare @tmp table(
 	gno nvarchar(1),
 	rr int,
-	recno int,
-	page int,
-	Timea nvarchar(50),
-	bd1 nvarchar(50),
-	carno nvarchar(50),
-	driverno nvarchar(50),
-	driver nvarchar(50),
-	time1 nvarchar(100),
-	paths nvarchar(max),
-	ed1 nvarchar(50),
+	noa nvarchar(50),
+	noq nvarchar(20),
+	custno nvarchar(50),
+	comp nvarchar(100),
+	trandate nvarchar(50),
+	conn1 nvarchar(50),
+	tel1 nvarchar(50),
 	addr1 nvarchar(100),
+	address1 nvarchar(max),
+	conn2 nvarchar(50),
+	tel2 nvarchar(50),
 	addr2 nvarchar(100),
+	address2 nvarchar(max),
+	productno nvarchar(100),
+	product nvarchar(100),
 	mount float,
-	unit nvarchar(50),
-	time2 nvarchar(100),
-	memo nvarchar(max)
+	unit nvarchar(20),
+	price float,
+	total float,
+	memo nvarchar(max),
+	vccenoa nvarchar(50) 
 )
-insert @tmp
-select '0','','','',a.timea,b.bdate,b.carno,b.driverno,b.driver,b.time3,b.paths,b.edate,b.addr,b.addr2,b.mount,b.unit,b.time2,b.memo
+insert @tmp 
+select '0','',a.noa,b.noq,a.custno,a.comp,a.date1,b.conn,b.tel,b.addr,b.address,b.containerno1,b.containerno2
+,b.addr2,b.address2,b.productno,b.product,b.mount,b.unit,b.price,b.total,replace(b.memo,'chr(10)','<br>'),c.noa
+from view_tranordes b left join view_tranorde a on a.noa=b.noa
+left join view_tranvcces c on b.noa=c.ordeno and b.noq=c.no2
+where (a.date1 between @t_bdate and @t_edate)
+and (a.cno between @t_bcno and @t_ecno)
+and (a.custno between @t_bcustno and @t_ecustno)
+and (b.productno between @t_bproductno and @t_eproductno)
+
+update a
+set rr=rx,gno=case when rx='1' then 0 else 1 end
+from (select ROW_NUMBER()over(partition by noa order by noa,noq)rx,rr,gno from @tmp)a
+
+if(@t_show='0')
+begin
+	select 
+	dbo.getComma(total,0)total
+	,dbo.getComma(price,0)price
+	,dbo.getComma(mount,0)mount
+	,* from @tmp
+	where ISNULL(vccenoa,'')=''
+	order by noa,rr
+end
+else if(@t_show='1')
+begin
+	select 
+	dbo.getComma(total,0)total
+	,dbo.getComma(price,0)price
+	,dbo.getComma(mount,0)mount
+	,* from @tmp
+	where ISNULL(vccenoa,'')!=''
+	order by noa,rr
+end
+else
+begin
+	select 
+	dbo.getComma(total,0)total
+	,dbo.getComma(price,0)price
+	,dbo.getComma(mount,0)mount
+	,* from @tmp
+	order by noa,rr
+end
+;
+--------------------------------------------------------------------------------------------------
+z_tran_pa10:--z_tran_pa10
+declare @t_bdate nvarchar(20)
+declare @t_edate nvarchar(20)
+declare @t_bcno nvarchar(20)
+declare @t_ecno nvarchar(20)
+declare @t_bcustno nvarchar(20)
+declare @t_ecustno nvarchar(20)
+declare @t_bproductno nvarchar(20)
+declare @t_eproductno nvarchar(20)
+declare @t_show nvarchar(20)
+set @t_bdate = case when '#non' = [2] then '' else [2] end
+set @t_edate = case when '#non' = [3] then CHAR(255) else [3] end
+set @t_bcno = case when '#non' = [6] then '' else [6] end
+set @t_ecno = case when '#non' = [7] then CHAR(255) else [7] end
+set @t_bcustno = case when '#non' = [8] then '' else [8] end
+set @t_ecustno = case when '#non' = [9] then CHAR(255) else [9] end
+set @t_bproductno = case when '#non' = [10] then '' else [10] end
+set @t_eproductno = case when '#non' = [11] then CHAR(255) else [11] end
+set @t_show = case when '#non' = [24] then '' else [24] end
+
+
+
+declare @tmp table(
+	gno nvarchar(1),
+	rr int,
+	noa nvarchar(50),
+	noq nvarchar(20),
+	custno nvarchar(50),
+	comp nvarchar(100),
+	trandate nvarchar(50),
+	conn1 nvarchar(50),
+	tel1 nvarchar(50),
+	addr1 nvarchar(100),
+	address1 nvarchar(max),
+	conn2 nvarchar(50),
+	tel2 nvarchar(50),
+	addr2 nvarchar(100),
+	address2 nvarchar(max),
+	productno nvarchar(100),
+	product nvarchar(100),
+	mount float,
+	unit nvarchar(20),
+	price float,
+	total float,
+	memo nvarchar(max),
+	vccenoa nvarchar(50) 
+)
+insert @tmp 
+select '0','',a.noa,b.noq,a.addrno,a.addr,a.timea,b.conn,b.tel,b.addr,b.address,b.lat,b.lat2
+,b.addr2,b.address2,b.productno,b.product,b.mount,b.unit,b.volume,b.total,replace(b.memo,'chr(10)','<br>'),c.noa
 from view_tranvcces b left join view_tranvcce a on a.noa=b.noa
+left join view_trans c on b.noa=c.ordeno and b.noq=c.caseno2
 where (a.timea between @t_bdate and @t_edate)
 and (a.cno between @t_bcno and @t_ecno)
 and (a.addrno between @t_bcustno and @t_ecustno)
+and (b.productno between @t_bproductno and @t_eproductno)
 
 update a
-set rr=rx,gno=case when rx='1' then 1 else 2 end
-from( select ROW_NUMBER()over(partition by addr1 order by Timea,addr1,gno,bd1)rx,rr,gno from @tmp)a
+set rr=rx,gno=case when rx='1' then 0 else 1 end
+from (select ROW_NUMBER()over(partition by noa order by noa,noq)rx,rr,gno from @tmp)a
 
-insert @tmp(gno,Timea,page,recno)
-select '3',Timea,page,99999
-from @tmp
-group by Timea,page
-
-select 
-* from @tmp
-order by Timea,page,recno
+if(@t_show='0')
+begin
+	select 
+	dbo.getComma(total,0)total
+	,dbo.getComma(price,0)price
+	,dbo.getComma(mount,0)mount
+	,* from @tmp
+	where ISNULL(vccenoa,'')=''
+	order by noa,rr
+end
+else if(@t_show='1')
+begin
+	select 
+	dbo.getComma(total,0)total
+	,dbo.getComma(price,0)price
+	,dbo.getComma(mount,0)mount
+	,* from @tmp
+	where ISNULL(vccenoa,'')!=''
+	order by noa,rr
+end
+else
+begin
+	select 
+	dbo.getComma(total,0)total
+	,dbo.getComma(price,0)price
+	,dbo.getComma(mount,0)mount
+	,* from @tmp
+	order by noa,rr
+end
 ;

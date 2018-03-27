@@ -1,0 +1,36 @@
+﻿chkorde:--chkorde
+SET QUOTED_IDENTIFIER OFF
+declare @t_qdate nvarchar(10)= [1]
+declare @t_noa nvarchar(max) = [2]
+declare @r_len nvarchar(max) = [3]
+
+if(LEN(@t_qdate)=8)
+begin 
+	set @t_qdate= convert(nvarchar, cast(cast('20'+left(@t_qdate,2) as int) as nvarchar)+right(@t_qdate,6)) 
+end
+else if(LEN(@t_qdate)=9 and (@r_len='3' or @r_len='4'))
+begin 
+	set @t_qdate= cast(cast(left(@t_qdate,3) as int)+1911 as nvarchar)+right(@t_qdate,6)
+end
+
+declare @maxnoa nvarchar(50) = (select MAX(noa) from sign where datea=@t_qdate)
+
+Begin Transaction [Trans_Name]
+begin try
+
+	insert sign(noa,datea,timea,form,memo,sender,receiver,zno,zno2)
+	select REPLACE(@t_qdate,'/','')+case when len(@maxnoa)!=0 then REPLICATE('0',5-LEN(RIGHT(@maxnoa,5)+1)) + RTRIM(CAST(RIGHT(@maxnoa,5)+1 AS CHAR)) else '00001' end
+	,@t_qdate,left(CONVERT(nvarchar,getdate(),108),5) timea,'訂單作業' form,'此訂單已派車後，重新執行訂單修改動作，請核對相關內容資料!' memo
+	,a.worker2 sender,case when c.worker!=c.worker2 then c.worker+','+c.worker2 else c.worker end receiver,a.noa zno,'tranorde;noa;' zno2
+	from view_tranorde a 
+	outer apply (select noa,ordeno from view_tranvcces where a.noa=ordeno group by noa,ordeno)b
+	left join view_tranvcce c on b.noa=c.noa
+	where ISNULL(b.ordeno,'')!=''
+	and a.noa='B1556954'
+	
+	Commit Transaction [Trans_Name] -- 提交所有操作所造成的變更
+end try
+begin catch
+	Rollback Transaction [Trans_Name] -- 復原所有操作所造成的變更
+end catch
+;

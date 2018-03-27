@@ -73,9 +73,20 @@
                         type : '1',//[18][19]
                         name : 'vnoa'
                     },{
+                        type : '1',//[20][21]
+                        name : 'odate'
+                    },{
                         type : '6',
-                        name : 'xstype', //[20]
+                        name : 'xstype', //[22]
                         value : xspecItem.split(',')
+                    },{
+                        type : '5', //[23]
+                        name : 'xshow1',
+                        value : (' @全部,0@未派車,1@已派車').split(',')
+                    },{
+                        type : '5', //[24]
+                        name : 'xshow1',
+                        value : (' @全部,0@未完工,1@已完工').split(',')
                     }]
                     });
                 q_popAssign();
@@ -121,6 +132,7 @@
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
 	                $('#txtVdate1').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtOdate1').val(t_year+'/'+t_month+'/'+t_day);
 	                $('#txtXmon1').val(t_year+'/'+t_month);
 	                
 	                t_date = new Date();
@@ -134,6 +146,7 @@
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
 	                $('#txtVdate2').val(t_year+'/'+t_month+'/'+t_day);
+	                $('#txtOdate2').val(t_year+'/'+t_month+'/'+t_day);
 	                $('#txtXmon2').val(t_year+'/'+t_month);
 	                
 	                q_gt('view_tranorde', '1=1 ', 0, 0, 0, "view_tranorde");
