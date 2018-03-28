@@ -21,12 +21,12 @@ begin try
 	insert sign(noa,datea,timea,form,memo,sender,receiver,zno,zno2)
 	select REPLACE(@t_qdate,'/','')+case when len(@maxnoa)!=0 then REPLICATE('0',5-LEN(RIGHT(@maxnoa,5)+1)) + RTRIM(CAST(RIGHT(@maxnoa,5)+1 AS CHAR)) else '00001' end
 	,@t_qdate,left(CONVERT(nvarchar,getdate(),108),5) timea,'訂單作業' form,'此訂單已派車後，重新執行訂單修改動作，請核對相關內容資料!' memo
-	,a.worker2 sender,case when c.worker!=c.worker2 then c.worker+','+c.worker2 else c.worker end receiver,a.noa zno,'tranorde;noa;' zno2
+	,a.worker2 sender,case when c.worker!=c.worker2 then c.worker+','+c.worker2 else c.worker end receiver,a.noa zno,'tranorde'+CHAR(59)+'noa'+CHAR(59) zno2
 	from view_tranorde a 
 	outer apply (select noa,ordeno from view_tranvcces where a.noa=ordeno group by noa,ordeno)b
 	left join view_tranvcce c on b.noa=c.noa
 	where ISNULL(b.ordeno,'')!=''
-	and a.noa='B1556954'
+	and a.noa=@t_noa
 	
 	Commit Transaction [Trans_Name] -- 提交所有操作所造成的變更
 end try
