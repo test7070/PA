@@ -19,7 +19,7 @@
             var q_readonly = ['txtWorker', 'txtWorker2','txtBoat'];
             var q_readonlys = [];
             var bbsNum = new Array(['txtLengthb', 10, 2, 1],['txtWidth', 10, 2, 1],['txtHeight', 10, 2, 1],['txtVolume', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTheight', 10, 0, 1],['txtTvolume', 10, 0, 1],['txtMount', 10, 0, 1],['txtPrice', 10, 2, 1],['txtMoney', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotal2', 10, 0, 1],['txtTotal3', 10, 0, 1]);
-            var bbsMask = new Array(['txtTrandate', '999/99/99'],['txtDate1', '999/99/99'],['txtDate2', '999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']);
+            var bbsMask = new Array(['txtTrandate', '9999/99/99'],['txtDate1', '9999/99/99'],['txtDate2', '9999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']);
             var bbtMask = new Array(); 
             var bbmNum = new Array();
             var bbmMask = new Array(['txtDatea', '9999/99/99'],['txtDate1', '9999/99/99'],['txtDate2', '999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']);
@@ -33,7 +33,8 @@
             //q_xchg = 1;
             brwCount2 = 7;
             aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,memo2', 'txtCustno,txtComp,txtNick,txtMemo', 'cust_b.aspx'] 
-                ,['txtAddrno', 'lblAddr_js', 'addr2_wj', 'custno,cust,address', 'txtAddrno,txtAddr,txtBoat', 'addr2_b2.aspx']
+                ,['txtAddrno_', 'btnAddrno_', 'addr2', 'noa,addr,conn,tel,address', 'txtAddrno_,txtAddr_,txtConn_,txtTel_,txtAddress_', 'addr2_b.aspx']
+                ,['txtAddrno2_', 'btnAddrno2_', 'addr2', 'noa,addr,conn,tel,address', 'txtAddrno2_,txtAddr2_,txtContainerno1_,txtContainerno2_,txtAddress2_', 'addr2_b.aspx']
                 ,['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
                 ,['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
             $(document).ready(function() {
@@ -77,6 +78,20 @@
                         e.preventDefault();
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnProduct_'+n).click();
+                    });
+                    
+                    $('#txtAddrno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnAddrno_'+n).click();
+                    });
+                    
+                    $('#txtAddrno2_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnAddrno2_'+n).click();
                     });
                     
                     $('#txtDate1_' + i).focusout(function (){
@@ -548,8 +563,9 @@
                     <td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
                     <td align="center" style="width:20px;"> </td>
                     <td align="center" style="width:90px"><a>帳單日期</a></td>
-                    <td align="center" style="width:250px"><a>寄件人/電話<br>SFD<br>地址</a></td>
-					<td align="center" style="width:250px"><a>收件人/電話<br>配送地<br>地址</a></td>
+                    <td align="center" style="width:50px"><a>SFD</a></td>
+                    <td align="center" style="width:250px"><a>取貨地<br>寄件人/電話<br>地址</a></td>
+					<td align="center" style="width:250px"><a>配送地<br>收件人/電話<br>地址</a></td>
                     <td align="center" style="width:200px"><a>品名</a></td>
                     <td align="center" style="width:50px"><a>單位</a></td>
                     <td align="center" style="width:70px"><a>數量</a></td>
@@ -564,18 +580,22 @@
                     </td>
                     <td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
                     <td><input type="text" id="txtDate1.*" style="width:95%;" /></td>
+                    <td><input type="text" id="txtOtype.*" style="width:98%;" /></td>
                     <td>
-                        <input type="text" id="txtConn.*" style="width:40%;">
-                        <input type="text" id="txtTel.*" style="width:52%;">
-                        <input type="text" id="txtAddr.*" style="width:95%;" />
-                        <input type="text" id="txtAddress.*" style="width:95%;" />
+                        <input type="text" id="txtAddrno.*" style="width:40%;" />
+                        <input type="text" id="txtAddr.*" style="width:55%;" />
+                        <input type="text" id="txtConn.*" style="width:40%;" />
+                        <input type="text" id="txtTel.*" style="width:55%;" />
+                        <input type="text" id="txtAddress.*" style="width:98%;" />
+                        <input type="button" id="btnAddrno.*" style="display:none;">
                     </td>
 					<td>
+					    <input type="text" id="txtAddrno2.*" style="width:40%;" />
+					    <input type="text" id="txtAddr2.*" style="width:55%;" />
 					    <input type="text" id="txtContainerno1.*" style="width:40%;" />
-                        <input type="text" id="txtContainerno2.*" style="width:52%;" />
-                        <input type="text" id="txtAddr2.*" style="width:95%;" />
-                        <input type="text" id="txtAddress2.*" style="width:95%;" />
-
+                        <input type="text" id="txtContainerno2.*" style="width:55%;" />
+                        <input type="text" id="txtAddress2.*" style="width:98%;" />
+                        <input type="button" id="btnAddrno2.*" style="display:none;">
                     </td>
                     <td>
                         <input type="text" id="txtProductno.*" style="width:95%;" />

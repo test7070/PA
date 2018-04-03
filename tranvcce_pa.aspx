@@ -32,6 +32,8 @@
             aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
             , ['txtAddrno', 'lblAddr_js', 'cust', 'noa,nick', 'txtAddrno,txtAddr', 'cust_b.aspx']
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,nick', 'txtCustno_,txtCust_', 'cust_b.aspx']
+            , ['txtAddrno_', 'btnAddrno_', 'addr2', 'noa,addr,conn,tel,address', 'txtAddrno_,txtAddr_,txtConn_,txtTel_,txtAddress_', 'addr2_b.aspx']
+            , ['txtAddrno2_', 'btnAddrno2_', 'addr2', 'noa,addr,conn,tel,address', 'txtAddrno2_,txtAddr2_,txtLat_,txtLat2_,txtAddress2_', 'addr2_b.aspx']
             , ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
             , ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
             , ['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']
@@ -94,8 +96,8 @@
                                 if (!b_ret || b_ret.length == 0)
                                     return;
                                     ret = q_gridAddRow(bbsHtm, 'tbbs', 
-                                    'txtOrdeno,txtNo2,txtBdate,txtConn,txtTel,txtAddress,txtLat,txtLat2,txtAddress2,txtProductno,txtProduct,txtUnit,txtMount,txtVolume,txtTotal,txtAddr,txtAddr2', b_ret.length, b_ret, 
-                                    'noa,noq,trandate,conn,tel,address,containerno1,containerno2,address2,productno,product,unit,mount,price,total,addr,addr2',',txtConn,txtProductno,txtProduct,txtUnit,txtMount,txtTotal');
+                                    'txtOrdeno,txtNo2,txtBdate,txtConn,txtTel,txtAddress,txtLat,txtLat2,txtAddress2,txtProductno,txtProduct,txtUnit,txtMount,txtVolume,txtTotal,txtAddrno,txtAddrno2,txtAddr,txtAddr2,txtTypea', b_ret.length, b_ret, 
+                                    'noa,noq,trandate,conn,tel,address,containerno1,containerno2,address2,productno,product,unit,mount,price,total,addrno,addrno2,addr,addr2,otype',',txtConn,txtProductno,txtProduct,txtUnit,txtMount,txtTotal');
                              }
                         break;
                     case q_name + '_s':
@@ -172,6 +174,20 @@
                             e.preventDefault();
                             var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                             $('#btnDriver_'+n).click();
+                    });
+                    
+                    $('#txtAddrno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnAddrno_'+n).click();
+                    });
+                    
+                    $('#txtAddrno2_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnAddrno2_'+n).click();
                     });
                       
                     $('#txtMount_' + i).change(function() {
@@ -507,7 +523,7 @@
 						</td>
 						<td align="center" id='datea'>~datea</td>
 						<td align="center" id='noa'>~noa</td>
-						<td align="center" id='comp'>~comp</td>
+						<td align="center" id='addr'>~addr</td>
 					</tr>
 				</table>
 			</div>
@@ -569,8 +585,9 @@
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:105px"><a>預計配送日期<br>裝車日期</a></td>
 					<td align="center" style="width:70px"><a>出車時間</a></td>
-					<td align="center" style="width:200px"><a>寄件人 / 電話<br>SFD<br>地址<br>取貨日期時間</a></td>
-					<td align="center" style="width:200px"><a>收件人 / 電話<br>配送地<br>地址<br>送達日期時間</a></td>
+					<td align="center" style="width:60px"><a>SFD</a></td>
+					<td align="center" style="width:200px"><a>取貨地<br>寄件人 / 電話<br>地址<br>取貨日期時間</a></td>
+					<td align="center" style="width:200px"><a>配送地<br>收件人 / 電話<br>地址<br>送達日期時間</a></td>
 					<td align="center" style="width:85px"><a>SFD擔當 / 倉庫聯絡人</a></td>
 					<td align="center" style="width:70px"><a>儲位</a></td>
 					<td align="center" style="width:100px"><a>品名</a></td>
@@ -599,19 +616,24 @@
                         <input type="text" id="txtEdate.*" style="width:95%;" />
                     </td>
                     <td><input type="text" id="txtTime3.*" style="width:95%;" /> </td>
+                    <td><input type="text" id="txtTypea.*" style="width:95%;" /> </td>
                     <td>
+                        <input type="text" id="txtAddrno.*" style="width:40%;" />
+                        <input type="text" id="txtAddr.*" style="width:53%;" />
                         <input type="text" id="txtConn.*" style="width:40%;" />
                         <input type="text" id="txtTel.*" style="width:53%;" />
-                        <input type="text" id="txtAddr.*" style="width:98%;" />
                         <input type="text" id="txtAddress.*" style="width:98%;" />
                         <input type="text" id="txtTime1.*" style="width:98%;" />
+                        <input type="button" id="btnAddrno.*" style="display:none;">
                     </td>
                     <td>
+                        <input type="text" id="txtAddrno2.*" style="width:40%;" />
+                        <input type="text" id="txtAddr2.*" style="width:53%;" />
                         <input type="text" id="txtLat.*" style="width:40%;" />
                         <input type="text" id="txtLat2.*" style="width:53%;" />
-                        <input type="text" id="txtAddr2.*" style="width:98%;" />
                         <input type="text" id="txtAddress2.*" style="width:98%;" />
                         <input type="text" id="txtTime2.*" style="width:98%;" />
+                        <input type="button" id="btnAddrno2.*" style="display:none;">
                     </td>
                     <td><input type="text" id="txtLng2.*" style="width:95%;"/></td>
                     <td><input type="text" id="txtLng.*" style="width:95%;"/></td>

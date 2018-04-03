@@ -39,6 +39,8 @@
 			aPop = new Array(
 				['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
 				, ['txtAddrno', 'lblAddrno', 'cust', 'noa,comp', 'txtAddrno,txtAddr', 'cust_b.aspx']
+				, ['txtStraddrno_', 'btnStraddr_', 'addr2', 'noa,addr,address', 'txtStraddrno_,txtStraddr_,txtSaddr_', 'addr2_b.aspx']
+                , ['txtEndaddrno_', 'btnEndaddr_', 'addr2', 'noa,addr,address', 'txtEndaddrno_,txtEndaddr_,txtAaddr_', 'addr2_b.aspx']
 				, ['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']
 				, ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
 				, ['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
@@ -107,6 +109,20 @@
                         $('#btnProduct_'+n).click();
                     });
                     
+                    $('#txtStraddrno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnStraddr_'+n).click();
+                    });
+                    
+                    $('#txtEndaddrno_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnEndaddr_'+n).click();
+                    });
+                    
                     $('#txtMount_' + i).change(function() {
                             sum();
                     });
@@ -156,8 +172,8 @@
                             if (!b_ret || b_ret.length == 0)
                                 return;
                                 ret = q_gridAddRow(bbsHtm, 'tbbs', 
-                                'txtOrdeno,txtCaseno2,txtDatea,txtUccno,txtProduct,txtMount,txtUnit,txtTotal,txtCarno,txtDriverno,txtDriver,txtTotal2,txtStel,txtSaddr,txtAtel,txtAaddr,txtCaseuseno,txtUnit2,txtPrice,txtStraddr,txtEndaddr', b_ret.length, b_ret, 
-                                'noa,noq,bdate,productno,product,mount,unit,total,carno,driverno,driver,total2,conn,address,lat,address2,lng,unit2,volume,addr,addr2', 'txtOrdeno,txtCaseno2,txtDatea,txtUccno,txtProductno,txtMount');
+                                'txtOrdeno,txtCaseno2,txtDatea,txtUccno,txtProduct,txtMount,txtUnit,txtTotal,txtCarno,txtDriverno,txtDriver,txtTotal2,txtStel,txtSaddr,txtAtel,txtAaddr,txtCaseuseno,txtUnit2,txtPrice,txtStraddrno,txtEndaddrno,txtStraddr,txtEndaddr,txtCstype', b_ret.length, b_ret, 
+                                'noa,noq,bdate,productno,product,mount,unit,total,carno,driverno,driver,total2,conn,address,lat,address2,lng,unit2,volume,addrno,addrno2,addr,addr2,typea', 'txtOrdeno,txtCaseno2,txtDatea,txtUccno,txtProductno,txtMount');
                             }
                         break;
                     case q_name + '_s':
@@ -571,6 +587,7 @@
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:80px;"><a>收款方式</a></td>
 					<td align="center" style="width:120px"><a>預計配送日期</a></td>
+					<td align="center" style="width:60px;"><a>SFD</a></td>
 					<td align="center" style="width:200px;"><a>SFD</a></td>
                     <td align="center" style="width:200px;"><a>配送地點</a></td>
                     <td align="center" style="width:80px;"><a>儲位</a></td>
@@ -591,19 +608,18 @@
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>					
 					<td><select id="cmbTtype.*" class="txt" style="width:95%;"> </select></td>
+					<td><input type="text" id="txtDatea.*" style="width:95%;" /></td>
+					<td><input type="text" id="txtCstype.*" style="width:95%;" /></td>
 					<td>
-                        <input type="text" id="txtDatea.*" style="width:95%;" />
-                    </td>
-					<td>
-					    <input type="text" id="txtStraddr.*" style="float:left;width:95%;"/>
-                        <input type="text" id="txtStel.*" style="display: none;"/>
-                        <input type="text" id="txtSaddr.*" style="float:left;width:95%;"/>
+					    <input type="text" id="txtStraddrno.*" style="float:left;width:40%;"/>
+					    <input type="text" id="txtStraddr.*" style="float:left;width:55%;"/>
+                        <input type="text" id="txtSaddr.*" style="float:left;width:98%;"/>
                         <input type="button" id="btnStraddr.*" style="display:none;">
                     </td>
                     <td>
-                        <input type="text" id="txtEndaddr.*" style="float:left;width:95%;"/>
-                        <input type="text" id="txtAtel.*" style="display: none;"/>
-                        <input type="text" id="txtAaddr.*" style="float:left;width:95%;"/>
+                        <input type="text" id="txtEndaddrno.*" style="float:left;width:40%;"/>
+                        <input type="text" id="txtEndaddr.*" style="float:left;width:55%;"/>
+                        <input type="text" id="txtAaddr.*" style="float:left;width:98%;"/>
                         <input type="button" id="btnEndaddr.*" style="display:none;">
                     </td>
                     <td><input type="text" id="txtCaseuseno.*" style="width:95%;"/></td>
