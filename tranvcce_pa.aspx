@@ -58,9 +58,9 @@
             function sum() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return;
-                for(var i=0;i<q_bbsCount;i++){
+                /*for(var i=0;i<q_bbsCount;i++){
                     $('#txtTotal_'+i).val(q_mul(q_float('txtVolume_' + i),q_float('txtMount_' + i)));
-                }
+                }*/
             }
 
             function mainPost() {
@@ -585,7 +585,7 @@
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:105px"><a>預計配送日期<br>裝車日期</a></td>
 					<td align="center" style="width:70px"><a>出車時間</a></td>
-					<td align="center" style="width:60px"><a>SFD</a></td>
+					<td align="center" style="width:60px;display: none;"><a>SFD</a></td>
 					<td align="center" style="width:200px"><a>取貨地<br>寄件人 / 電話<br>地址<br>取貨日期時間</a></td>
 					<td align="center" style="width:200px"><a>配送地<br>收件人 / 電話<br>地址<br>送達日期時間</a></td>
 					<td align="center" style="width:85px"><a>SFD擔當 / 倉庫聯絡人</a></td>
@@ -595,7 +595,7 @@
 					<td align="center" style="width:70px"><a>數量</a></td>
 					<td align="center" style="width:70px"><a>材積</a></td>
 					<td align="center" style="width:70px"><a>重量</a></td>
-					<td align="center" style="width:70px"><a>單價</a></td>
+					<td align="center" style="width:70px;display: none;"><a>單價</a></td>
                     <td align="center" style="width:70px"><a>應收金額</a></td>
 					<td align="center" style="width:60px"><a>車牌</a></td>
                     <td align="center" style="width:60px"><a>司機</a></td>
@@ -616,7 +616,7 @@
                         <input type="text" id="txtEdate.*" style="width:95%;" />
                     </td>
                     <td><input type="text" id="txtTime3.*" style="width:95%;" /> </td>
-                    <td><input type="text" id="txtTypea.*" style="width:95%;" /> </td>
+                    <td style="display: none;"><input type="text" id="txtTypea.*" style="width:95%;display: none;" /> </td>
                     <td>
                         <input type="text" id="txtAddrno.*" style="width:40%;" />
                         <input type="text" id="txtAddr.*" style="width:53%;" />
@@ -647,7 +647,7 @@
                     <td><input type="text" id="txtMount.*" class="num" style="width:95%;"/></td>
                     <td><input type="text" id="txtTvolume.*" class="num" style="width:95%;"/></td>
                     <td><input type="text" id="txtWeight.*" class="num" style="width:95%;"/></td>
-                    <td><input type="text" id="txtVolume.*" class="num" style="width:95%;"/></td>
+                    <td style="display: none;"><input type="text" id="txtVolume.*" class="num" style="width:95%;;display: none;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
 					<td>
                         <input type="text" id="txtCarno.*" style="width:95%;"/>

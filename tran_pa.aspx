@@ -51,9 +51,9 @@
 			function sum() {
 			    if (!(q_cur == 1 || q_cur == 2))
                     return;
-                for(var i=0;i<q_bbsCount;i++){
+                /*for(var i=0;i<q_bbsCount;i++){
                     $('#txtTotal_'+i).val(q_mul(q_float('txtPrice_' + i),q_float('txtMount_' + i)));
-                }
+                }*/
 				
 			}
 			
@@ -587,12 +587,12 @@
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:80px;"><a>收款方式</a></td>
 					<td align="center" style="width:120px"><a>預計配送日期</a></td>
-					<td align="center" style="width:60px;"><a>SFD</a></td>
-					<td align="center" style="width:200px;"><a>SFD</a></td>
+					<td align="center" style="width:60px;display:none;"><a>SFD</a></td>
+					<td align="center" style="width:200px;"><a>取貨地點</a></td>
                     <td align="center" style="width:200px;"><a>配送地點</a></td>
                     <td align="center" style="width:80px;"><a>儲位</a></td>
 					<td align="center" style="width:100px;"><a>品名</a></td>
-					<td align="center" style="width:80px;"><a>單價</a></td>
+					<td align="center" style="width:80px;display:none;"><a>單價</a></td>
 					<td align="center" style="width:80px;"><a>件數</a></td>
 					<td align="center" style="width:60px;"><a>單位</a></td>				
 					<td align="center" style="width:80px;"><a>應收運費</a></td>
@@ -609,7 +609,7 @@
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>					
 					<td><select id="cmbTtype.*" class="txt" style="width:95%;"> </select></td>
 					<td><input type="text" id="txtDatea.*" style="width:95%;" /></td>
-					<td><input type="text" id="txtCstype.*" style="width:95%;" /></td>
+					<td style="display: none;"><input type="text" id="txtCstype.*" style="width:95%;display:none;" /></td>
 					<td>
 					    <input type="text" id="txtStraddrno.*" style="float:left;width:40%;"/>
 					    <input type="text" id="txtStraddr.*" style="float:left;width:55%;"/>
@@ -628,7 +628,7 @@
 						<input type="button" id="btnProduct.*" style="display:none;">
 						<input type="text" id="txtProduct.*" style="float:left;width:95%;"/>	
 					</td>
-					<td><input type="text" id="txtPrice.*" class="num" style="float:left;width:95%;"/></td>
+					<td style="display: none;"><input type="text" id="txtPrice.*" class="num" style="float:left;width:95%;display:none;"/></td>
 					<td><input type="text" id="txtMount.*" class="num" style="float:left;width:95%;"/></td>
 					<td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="float:center;width:95%;"/></td>

@@ -16,7 +16,7 @@
         <script type="text/javascript">
             q_tables = 't';
             var q_name = "tranorde";
-            var q_readonly = ['txtWorker', 'txtWorker2','txtBoat'];
+            var q_readonly = ['txtNoa','txtWorker', 'txtWorker2','txtBoat'];
             var q_readonlys = [];
             var bbsNum = new Array(['txtLengthb', 10, 2, 1],['txtWidth', 10, 2, 1],['txtHeight', 10, 2, 1],['txtVolume', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTheight', 10, 0, 1],['txtTvolume', 10, 0, 1],['txtMount', 10, 0, 1],['txtPrice', 10, 2, 1],['txtMoney', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotal2', 10, 0, 1],['txtTotal3', 10, 0, 1]);
             var bbsMask = new Array(['txtTrandate', '9999/99/99'],['txtDate1', '9999/99/99'],['txtDate2', '9999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']);
@@ -49,9 +49,9 @@
             function sum() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return;
-                for(var i=0;i<q_bbsCount;i++){
+                /*for(var i=0;i<q_bbsCount;i++){
                     $('#txtTotal_'+i).val(q_mul(q_float('txtPrice_' + i),q_float('txtMount_' + i)));
-                }
+                }*/
             }
             function main() {
                 if (dataErr) {
@@ -134,13 +134,13 @@
                                 q_msg($(this), '=號複製上一筆摘要');
                     });
                          
-                    $('#txtMount_' + i).change(function() {
+                    /*$('#txtMount_' + i).change(function() {
                             sum();
                     });
                     
                     $('#txtPrice_' + i).change(function() {
                             sum();
-                    });
+                    });*/
 
                 }
                 _bbsAssign();
@@ -226,10 +226,10 @@
                     alert("error: btnok!");
                 }
                 var t_noa = trim($('#txtNoa').val());
-                /*var t_date = trim($('#txtDatea').val());
+                var t_date = trim($('#txtDatea').val());
                 if (t_noa.length == 0 || t_noa == "AUTO")
                     q_gtnoa(q_name, replaceAll(q_getPara('sys.key_tranorde') + (t_date.length == 0 ? q_date() : t_date), '/', ''));
-                else*/
+                else
                     wrServer(t_noa);
             }
             function wrServer(key_value) {
@@ -563,13 +563,13 @@
                     <td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
                     <td align="center" style="width:20px;"> </td>
                     <td align="center" style="width:90px"><a>帳單日期</a></td>
-                    <td align="center" style="width:50px"><a>SFD</a></td>
+                    <td align="center" style="width:50px;display: none;"><a>SFD</a></td>
                     <td align="center" style="width:250px"><a>取貨地<br>寄件人/電話<br>地址</a></td>
 					<td align="center" style="width:250px"><a>配送地<br>收件人/電話<br>地址</a></td>
                     <td align="center" style="width:200px"><a>品名</a></td>
                     <td align="center" style="width:50px"><a>單位</a></td>
                     <td align="center" style="width:70px"><a>數量</a></td>
-                    <td align="center" style="width:70px"><a>單價</a></td>
+                    <td align="center" style="width:70px;display: none;"><a>單價</a></td>
 					<td align="center" style="width:100px"><a>金額</a></td>
                     <td align="center" style="width:100px"><a>備註</a></td>
                 </tr>
@@ -580,7 +580,7 @@
                     </td>
                     <td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
                     <td><input type="text" id="txtDate1.*" style="width:95%;" /></td>
-                    <td><input type="text" id="txtOtype.*" style="width:98%;" /></td>
+                    <td style="display: none;"><input type="text" id="txtOtype.*" style="width:98%;display: none;" /></td>
                     <td>
                         <input type="text" id="txtAddrno.*" style="width:40%;" />
                         <input type="text" id="txtAddr.*" style="width:55%;" />
@@ -605,7 +605,7 @@
                     </td>
                     <td><input type="text" id="txtUnit.*" class="num" style="width:95%;" /> </td>
                     <td><input type="text" id="txtMount.*" class="num" style="width:95%;" /></td>
-                    <td><input type="text" id="txtPrice.*" class="num" style="width:95%;" /></td>
+                    <td style="display: none;" ><input type="text" id="txtPrice.*" class="num" style="width:95%;display: none;" /></td>
                     <td><input type="text" id="txtTotal.*" class="num" style="width:95%;" /> </td>
                     <td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
                     <td bgcolor="white">&nbsp;</td>
