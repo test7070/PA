@@ -91,8 +91,10 @@
 					<th align="center"><a id=''>配送日期</a></th>
 					<th align="center"><a id=''>寄件人</a></th>
                     <th align="center"><a id=''>收件人</a></th>
-					<th align="center"><a id=''>品名</a></th>
+					<th align="center"><a id=''>尺寸</a></th>
 					<th align="center"><a id=''>數量</a></th>
+					<th align="center"><a id=''>材積</a></th>
+					<th align="center"><a id=''>重量</a></th>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td style="width:10px;"><input id="chkSel.*" type="checkbox"/></td>
@@ -115,10 +117,11 @@
                         <input id="txtAddress2.*" type="text" style="float:left;width:100%; background: rgb(237, 237, 238);" readonly="readonly" />
                     </td>
                     <td style="width:100px;">
-                        <input id="txtProductno.*" type="text" style="display:none; background: rgb(237, 237, 238);"/>
                         <input id="txtProduct.*" type="text" style="float:left;width:95%; background: rgb(237, 237, 238);" readonly="readonly" />
                     </td>
                     <td style="width:70px;"><input id="txtMount.*" type="text" style="text-align:right;width:95%; background: rgb(237, 237, 238);" readonly="readonly"/></td>
+                    <td style="width:70px;"><input id="txtVolume.*" type="text" style="text-align:right;width:95%; background: rgb(237, 237, 238);" readonly="readonly"/></td>
+                    <td style="width:70px;"><input id="txtWeight.*" type="text" style="text-align:right;width:95%; background: rgb(237, 237, 238);" readonly="readonly"/></td>
 				</tr>
 			</table>
 		</div>

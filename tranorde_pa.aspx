@@ -36,7 +36,7 @@
                 ,['txtAddrno_', 'btnAddrno_', 'addr2', 'noa,addr,conn,tel,address', 'txtAddrno_,txtAddr_,txtConn_,txtTel_,txtAddress_', 'addr2_b.aspx']
                 ,['txtAddrno2_', 'btnAddrno2_', 'addr2', 'noa,addr,conn,tel,address', 'txtAddrno2_,txtAddr2_,txtContainerno1_,txtContainerno2_,txtAddress2_', 'addr2_b.aspx']
                 ,['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
-                ,['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']);
+                );
             $(document).ready(function() {
                 var t_where = '';
                 bbmKey = ['noa'];
@@ -62,7 +62,7 @@
             }
             function mainPost() {
                 q_mask(bbmMask);
-                
+                q_cmbParse("cmbStype",',郵寄,順送,自送,專車,空運,收貨,海運'); 
                 if(r_len==4){           
                     $.datepicker.r_len=4;
                 }
@@ -537,7 +537,7 @@
                         <td><span> </span><a id="lblSo_pa" class="lbl">帳單編號</a></td>
                         <td colspan="2"><input id="txtSo" type="text" class="txt c1"/></td>
                         <td><span> </span><a id="lblStype_pa" class="lbl">JOB TYPE</a></td>
-                        <td><input id="txtStype" type="text" class="txt c1"/></td>
+                        <td><select id="cmbStype" style="width: 100%;"> </select></td> 
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblMemo" class="lbl"> </a></td>
@@ -551,8 +551,8 @@
                         <td><input id="txtWorker" type="text"  class="txt c1"/></td>
                         <td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
                         <td><input id="txtWorker2" type="text"  class="txt c1"/></td>
-                        <td><span> </span><a class="lbl">結案</a></td>
-                        <td><input type="checkbox" id="chkEnda"/></td>
+                        <td style="display:none;"><span> </span><a class="lbl">結案</a></td>
+                        <td style="display:none;"><input type="checkbox" id="chkEnda"/></td>
                     </tr>
                 </table>
             </div>
@@ -566,10 +566,12 @@
                     <td align="center" style="width:50px;display: none;"><a>SFD</a></td>
                     <td align="center" style="width:250px"><a>取貨地<br>寄件人/電話<br>地址</a></td>
 					<td align="center" style="width:250px"><a>配送地<br>收件人/電話<br>地址</a></td>
-                    <td align="center" style="width:200px"><a>品名</a></td>
+                    <td align="center" style="width:200px"><a>尺寸</a></td>
                     <td align="center" style="width:50px"><a>單位</a></td>
                     <td align="center" style="width:70px"><a>數量</a></td>
                     <td align="center" style="width:70px;display: none;"><a>單價</a></td>
+                    <td align="center" style="width:70px"><a>材積</a></td>
+                    <td align="center" style="width:70px"><a>重量</a></td>
 					<td align="center" style="width:100px"><a>金額</a></td>
                     <td align="center" style="width:100px"><a>備註</a></td>
                 </tr>
@@ -598,14 +600,14 @@
                         <input type="button" id="btnAddrno2.*" style="display:none;">
                     </td>
                     <td>
-                        <input type="text" id="txtProductno.*" style="width:95%;" />
-                        <input type="button" id="btnProduct.*" style="display:none;">
                         <input type="text" id="txtProduct.*" style="width:95%;"/>
                         
                     </td>
                     <td><input type="text" id="txtUnit.*" class="num" style="width:95%;" /> </td>
                     <td><input type="text" id="txtMount.*" class="num" style="width:95%;" /></td>
                     <td style="display: none;" ><input type="text" id="txtPrice.*" class="num" style="width:95%;display: none;" /></td>
+                    <td><input type="text" id="txtVolume.*" class="num" style="width:95%;" /></td>
+                    <td><input type="text" id="txtWeight.*" class="num" style="width:95%;" /></td>
                     <td><input type="text" id="txtTotal.*" class="num" style="width:95%;" /> </td>
                     <td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
                     <td bgcolor="white">&nbsp;</td>

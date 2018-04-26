@@ -84,7 +84,7 @@
 					<th align="center"><a id=''>配送日期</a></th>
 					<th align="center"><a id=''>SFD</a></th>
                     <th align="center"><a id=''>配送地</a></th>
-					<th align="center"><a id=''>品名</a></th>
+					<th align="center"><a id=''>尺寸</a></th>
 					<th align="center"><a id=''>數量</a></th>
 					<th align="center"><a id=''>應收金額</a></th>
 					<th align="center"><a id=''>應付金額</a></th>

@@ -34,7 +34,6 @@
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,nick', 'txtCustno_,txtCust_', 'cust_b.aspx']
             , ['txtAddrno_', 'btnAddrno_', 'addr2', 'noa,addr,conn,tel,address', 'txtAddrno_,txtAddr_,txtConn_,txtTel_,txtAddress_', 'addr2_b.aspx']
             , ['txtAddrno2_', 'btnAddrno2_', 'addr2', 'noa,addr,conn,tel,address', 'txtAddrno2_,txtAddr2_,txtLat_,txtLat2_,txtAddress2_', 'addr2_b.aspx']
-            , ['txtProductno_', 'btnProduct_', 'ucc', 'noa,product', 'txtProductno_,txtProduct_', 'ucc_b.aspx']
             , ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
             , ['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']
             );
@@ -78,7 +77,7 @@
                 $('#btnOrde').click(function(e){
                     t_custno=$('#txtAddrno').val();
                     t_cno=$('#txtCno').val();
-                    t_datea=$('#txtTimea').val();
+                    t_datea='';
                     var t_where ='';
                     q_box("tranordepa_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({cno:t_cno,custno:t_custno,trandate:t_datea,page:'tranvcce_pa'}), "tranorde_tranvcce", "95%", "95%", '');
                     /*var t_where = "(caseno='"+t_cno+"') and (custno='"+t_custno+"') and (trandate='"+t_datea+"') ";
@@ -96,8 +95,8 @@
                                 if (!b_ret || b_ret.length == 0)
                                     return;
                                     ret = q_gridAddRow(bbsHtm, 'tbbs', 
-                                    'txtOrdeno,txtNo2,txtBdate,txtConn,txtTel,txtAddress,txtLat,txtLat2,txtAddress2,txtProductno,txtProduct,txtUnit,txtMount,txtVolume,txtTotal,txtAddrno,txtAddrno2,txtAddr,txtAddr2,txtTypea', b_ret.length, b_ret, 
-                                    'noa,noq,trandate,conn,tel,address,containerno1,containerno2,address2,productno,product,unit,mount,price,total,addrno,addrno2,addr,addr2,otype',',txtConn,txtProductno,txtProduct,txtUnit,txtMount,txtTotal');
+                                    'txtOrdeno,txtNo2,txtBdate,txtConn,txtTel,txtAddress,txtLat,txtLat2,txtAddress2,txtProductno,txtProduct,txtUnit,txtMount,txtVolume,txtTotal,txtAddrno,txtAddrno2,txtAddr,txtAddr2,txtTypea,txtTvolume,txtWeight', b_ret.length, b_ret, 
+                                    'noa,noq,trandate,conn,tel,address,containerno1,containerno2,address2,productno,product,unit,mount,price,total,addrno,addrno2,addr,addr2,otype,volume,weight',',txtConn,txtProductno,txtProduct,txtUnit,txtMount,txtTotal');
                              }
                         break;
                     case q_name + '_s':
@@ -590,7 +589,7 @@
 					<td align="center" style="width:200px"><a>配送地<br>收件人 / 電話<br>地址<br>送達日期時間</a></td>
 					<td align="center" style="width:85px"><a>SFD擔當 / 倉庫聯絡人</a></td>
 					<td align="center" style="width:70px"><a>儲位</a></td>
-					<td align="center" style="width:100px"><a>品名</a></td>
+					<td align="center" style="width:150px"><a>尺寸</a></td>
 					<td align="center" style="width:40px"><a>單位</a></td>
 					<td align="center" style="width:70px"><a>數量</a></td>
 					<td align="center" style="width:70px"><a>材積</a></td>
@@ -600,7 +599,6 @@
 					<td align="center" style="width:60px"><a>車牌</a></td>
                     <td align="center" style="width:60px"><a>司機</a></td>
                     <td align="center" style="width:70px"><a>應付金額</a></td>
-                    <td align="center" style="width:70px"><a>尺寸</a></td>
                     <td align="center" style="width:70px"><a>車型</a></td>
                     <td align="center" style="width:100px"><a>準備工具<br>助理需求</a></td>               
                     <td align="center" style="width:200px"><a>訂單編號<br>銷貨單單號</a></td>
@@ -638,10 +636,7 @@
                     <td><input type="text" id="txtLng2.*" style="width:95%;"/></td>
                     <td><input type="text" id="txtLng.*" style="width:95%;"/></td>
 					<td>
-                        <input type="text" id="txtProductno.*" style="width:95%;" />
-                        <input type="text" id="txtProduct.*" style="width:95%;" /> 
-                        <input type="button" id="btnProduct.*" style="display:none;">
-                        
+                        <input type="text" id="txtProduct.*" style="width:95%;" />      
                     </td>
                     <td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
                     <td><input type="text" id="txtMount.*" class="num" style="width:95%;"/></td>
@@ -659,7 +654,6 @@
                         <input type="button" id="btnDriver.*" style="display:none;"/>
                     </td>
                     <td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
-                    <td><input type="text" id="txtAddrno3.*" style="width:95%;"/></td>
                     <td><input type="text" id="txtCalctype.*" style="width:95%;"/></td>
                     <td><input type="text" id="txtAddr3.*" style="width:95%;"/>
                         <input type="text" id="txtPaths.*" style="width:95%;"/></td>

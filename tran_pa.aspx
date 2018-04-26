@@ -43,7 +43,6 @@
                 , ['txtEndaddrno_', 'btnEndaddr_', 'addr2', 'noa,addr,address', 'txtEndaddrno_,txtEndaddr_,txtAaddr_', 'addr2_b.aspx']
 				, ['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']
 				, ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
-				, ['txtUccno_', 'btnProduct_', 'ucc', 'noa,product', 'txtUccno_,txtProduct_', 'ucc_b.aspx']
 				, ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
 				, ['txtCarno', 'lblCarno', 'car2', 'a.noa,driverno,driver', 'txtCarno,txtDriverno,txtDriver', 'car2_b.aspx'])
 				;
@@ -151,7 +150,7 @@
 			}
 
 			function bbsSave(as) {
-				if (!as['comp'] && !as['productno'] && !as['product']) {
+				if (!as['comp'] && !as['productno'] && !as['product'] && !as['carno'] && !as['mount'] && !as['driverno']) {
 					as[bbsKey[1]] = '';
 					return;
 				}
@@ -591,7 +590,7 @@
 					<td align="center" style="width:200px;"><a>取貨地點</a></td>
                     <td align="center" style="width:200px;"><a>配送地點</a></td>
                     <td align="center" style="width:80px;"><a>儲位</a></td>
-					<td align="center" style="width:100px;"><a>品名</a></td>
+					<td align="center" style="width:100px;"><a>尺寸</a></td>
 					<td align="center" style="width:80px;display:none;"><a>單價</a></td>
 					<td align="center" style="width:80px;"><a>件數</a></td>
 					<td align="center" style="width:60px;"><a>單位</a></td>				
@@ -624,8 +623,6 @@
                     </td>
                     <td><input type="text" id="txtCaseuseno.*" style="width:95%;"/></td>
 					<td>
-						<input type="text" id="txtUccno.*" style="float:left;width:95%;"/>
-						<input type="button" id="btnProduct.*" style="display:none;">
 						<input type="text" id="txtProduct.*" style="float:left;width:95%;"/>	
 					</td>
 					<td style="display: none;"><input type="text" id="txtPrice.*" class="num" style="float:left;width:95%;display:none;"/></td>
