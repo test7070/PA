@@ -131,7 +131,6 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate1').val(t_year+'/'+t_month+'/'+t_day);
-	                $('#txtVdate1').val(t_year+'/'+t_month+'/'+t_day);
 	                $('#txtOdate1').val(t_year+'/'+t_month+'/'+t_day);
 	                $('#txtXmon1').val(t_year+'/'+t_month);
 	                
@@ -145,7 +144,6 @@
 	                t_day = t_date.getUTCDate();
 	                t_day = t_day>9?t_day+'':'0'+t_day;
 	                $('#txtDate2').val(t_year+'/'+t_month+'/'+t_day);
-	                $('#txtVdate2').val(t_year+'/'+t_month+'/'+t_day);
 	                $('#txtOdate2').val(t_year+'/'+t_month+'/'+t_day);
 	                $('#txtXmon2').val(t_year+'/'+t_month);
 	                

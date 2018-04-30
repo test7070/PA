@@ -592,7 +592,7 @@
 					<td align="center" style="width:150px"><a>尺寸</a></td>
 					<td align="center" style="width:40px"><a>單位</a></td>
 					<td align="center" style="width:70px"><a>數量</a></td>
-					<td align="center" style="width:70px"><a>材積</a></td>
+					<td align="center" style="width:70px"><a>m3</a></td>
 					<td align="center" style="width:70px"><a>重量</a></td>
 					<td align="center" style="width:70px;display: none;"><a>單價</a></td>
                     <td align="center" style="width:70px"><a>應收金額</a></td>

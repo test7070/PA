@@ -93,7 +93,7 @@
                     <th align="center"><a id=''>收件人</a></th>
 					<th align="center"><a id=''>尺寸</a></th>
 					<th align="center"><a id=''>數量</a></th>
-					<th align="center"><a id=''>材積</a></th>
+					<th align="center"><a id=''>m3</a></th>
 					<th align="center"><a id=''>重量</a></th>
 				</tr>
 				<tr  style='background:#cad3ff;'>

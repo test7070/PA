@@ -49,9 +49,18 @@
             function sum() {
                 if (!(q_cur == 1 || q_cur == 2))
                     return;
-                /*for(var i=0;i<q_bbsCount;i++){
-                    $('#txtTotal_'+i).val(q_mul(q_float('txtPrice_' + i),q_float('txtMount_' + i)));
-                }*/
+                for(var i=0;i<q_bbsCount;i++){
+                    var t_style=$('#txtProduct_'+i).val().split(' ');
+                    var t_spec=t_style[0].split('*');
+                    var t_spec1=t_style[0].split('x');
+                    if (t_spec.length>1){
+                        $('#txtVolume_'+i).val(q_mul(q_mul(t_spec[0],t_spec[1]),t_spec[2]));
+                    }else if(t_spec1.length>1){
+                        $('#txtVolume_'+i).val(q_mul(q_mul(t_spec1[0],t_spec1[1]),t_spec1[2]));
+                    }else{
+                        $('#txtVolume_'+i).val(0);
+                    }
+                }
             }
             function main() {
                 if (dataErr) {
@@ -134,11 +143,11 @@
                                 q_msg($(this), '=號複製上一筆摘要');
                     });
                          
-                    /*$('#txtMount_' + i).change(function() {
+                    $('#txtProduct_' + i).change(function() {
                             sum();
                     });
                     
-                    $('#txtPrice_' + i).change(function() {
+                    /*$('#txtPrice_' + i).change(function() {
                             sum();
                     });*/
 
@@ -570,7 +579,7 @@
                     <td align="center" style="width:50px"><a>單位</a></td>
                     <td align="center" style="width:70px"><a>數量</a></td>
                     <td align="center" style="width:70px;display: none;"><a>單價</a></td>
-                    <td align="center" style="width:70px"><a>材積</a></td>
+                    <td align="center" style="width:70px"><a>m3</a></td>
                     <td align="center" style="width:70px"><a>重量</a></td>
 					<td align="center" style="width:100px"><a>金額</a></td>
                     <td align="center" style="width:100px"><a>備註</a></td>
