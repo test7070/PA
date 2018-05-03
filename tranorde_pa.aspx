@@ -19,10 +19,10 @@
             var q_readonly = ['txtNoa','txtWorker', 'txtWorker2','txtBoat'];
             var q_readonlys = [];
             var bbsNum = new Array(['txtLengthb', 10, 2, 1],['txtWidth', 10, 2, 1],['txtHeight', 10, 2, 1],['txtVolume', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTheight', 10, 0, 1],['txtTvolume', 10, 0, 1],['txtMount', 10, 0, 1],['txtPrice', 10, 2, 1],['txtMoney', 10, 0, 1],['txtTotal', 10, 0, 1],['txtTotal2', 10, 0, 1],['txtTotal3', 10, 0, 1]);
-            var bbsMask = new Array(['txtTrandate', '9999/99/99'],['txtDate1', '9999/99/99'],['txtDate2', '9999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']);
+            var bbsMask = new Array(['txtTrandate', '999/99/99'],['txtDate1', '999/99/99'],['txtDate2', '999/99/99'],['txtTime1', '99:99'],['txtTime2', '999/99/99']);
             var bbtMask = new Array(); 
             var bbmNum = new Array();
-            var bbmMask = new Array(['txtDatea', '9999/99/99'],['txtDate1', '9999/99/99'],['txtDate2', '999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']);
+            var bbmMask = new Array(['txtDatea', '999/99/99'],['txtDate1', '999/99/99'],['txtDate2', '999/99/99'],['txtTime1', '99:99'],['txtTime2', '99:99']);
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -32,9 +32,11 @@
             q_desc = 1;
             //q_xchg = 1;
             brwCount2 = 7;
-            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,memo2', 'txtCustno,txtComp,txtNick,txtMemo', 'cust_b.aspx'] 
-                ,['txtAddrno_', 'btnAddrno_', 'addr2', 'noa,addr,conn,tel,address', 'txtAddrno_,txtAddr_,txtConn_,txtTel_,txtAddress_', 'addr2_b.aspx']
-                ,['txtAddrno2_', 'btnAddrno2_', 'addr2', 'noa,addr,conn,tel,address', 'txtAddrno2_,txtAddr2_,txtContainerno1_,txtContainerno2_,txtAddress2_', 'addr2_b.aspx']
+            aPop = new Array(['txtCustno', 'lblCust', 'cust', 'noa,comp,nick,memo2', 'txtCustno,txtComp,txtNick,txtMemo', 'cust_b.aspx']
+                ,['txtOtype_', 'btnAddrno3_', 'cust', 'serial,comp', 'txtOtype_,txtProductno_', 'cust_b.aspx']
+                ,['txtProductno_', 'btnAddrno3_', 'cust', 'comp,serial', 'txtProductno_,txtOtype_', 'cust_b.aspx']
+                ,['txtAddrno_', 'btnAddrno_', 'addr2', 'noa,addr,conn,tel,address,direction', 'txtAddrno_,txtAddr_,txtConn_,txtTel_,txtAddress_,txtProduct2_', 'addr2_b.aspx']
+                ,['txtAddrno2_', 'btnAddrno2_', 'addr2', 'noa,addr,conn,tel,address,direction', 'txtAddrno2_,txtAddr2_,txtContainerno1_,txtContainerno2_,txtAddress2_,txtProductno2_', 'addr2_b.aspx']
                 ,['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
                 );
             $(document).ready(function() {
@@ -101,6 +103,20 @@
                         e.preventDefault();
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnAddrno2_'+n).click();
+                    });
+                    
+                    $('#txtOtype_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnAddrno3_'+n).click();
+                    });
+                    
+                    $('#txtProduct_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnAddrno3_'+n).click();
                     });
                     
                     $('#txtDate1_' + i).focusout(function (){
@@ -210,6 +226,12 @@
                 _btnModi();
                 sum();
                 $('#txtDatea').focus();
+                if($('#txtWorker').val()!=r_name){
+                    for(var i=0;i<q_bbsCount;i++){
+                        $('#txtTotal_'+i).attr('readonly','readonly');
+                        $('#txtTotal_'+i).css('color','green').css('background-color','rgb(237,237,237)');
+                    }
+                }     
             }
             function btnPrint() {
                 q_box('z_tran_pa.aspx' + "?;;;noa=" + trim($('#txtNoa').val()) + ";" + r_accy, '', "95%", "95%", q_getMsg("popPrint"));
@@ -572,9 +594,10 @@
                     <td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
                     <td align="center" style="width:20px;"> </td>
                     <td align="center" style="width:90px"><a>帳單日期</a></td>
-                    <td align="center" style="width:50px;display: none;"><a>SFD</a></td>
-                    <td align="center" style="width:250px"><a>取貨地<br>寄件人/電話<br>地址</a></td>
-					<td align="center" style="width:250px"><a>配送地<br>收件人/電話<br>地址</a></td>
+                    <td align="center" style="width:90px"><a>完工日期</a></td>
+                    <td align="center" style="width:250px"><a>取貨地<br>寄件人/電話<br>地址<br>特殊需求</a></td>
+					<td align="center" style="width:250px"><a>配送地<br>收件人/電話<br>地址<br>特殊需求</a></td>
+					<td align="center" style="width:100px;"><a>貨主統編<br>貨主</a></td>
                     <td align="center" style="width:200px"><a>尺寸</a></td>
                     <td align="center" style="width:50px"><a>單位</a></td>
                     <td align="center" style="width:70px"><a>數量</a></td>
@@ -591,13 +614,14 @@
                     </td>
                     <td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
                     <td><input type="text" id="txtDate1.*" style="width:95%;" /></td>
-                    <td style="display: none;"><input type="text" id="txtOtype.*" style="width:98%;display: none;" /></td>
+                    <td><input type="text" id="txtTime2.*" style="width:95%;" /></td>
                     <td>
                         <input type="text" id="txtAddrno.*" style="width:40%;" />
                         <input type="text" id="txtAddr.*" style="width:55%;" />
                         <input type="text" id="txtConn.*" style="width:40%;" />
                         <input type="text" id="txtTel.*" style="width:55%;" />
                         <input type="text" id="txtAddress.*" style="width:98%;" />
+                        <input type="text" id="txtProduct2.*" style="width:98%;" />
                         <input type="button" id="btnAddrno.*" style="display:none;">
                     </td>
 					<td>
@@ -606,7 +630,12 @@
 					    <input type="text" id="txtContainerno1.*" style="width:40%;" />
                         <input type="text" id="txtContainerno2.*" style="width:55%;" />
                         <input type="text" id="txtAddress2.*" style="width:98%;" />
+                        <input type="text" id="txtProductno2.*" style="width:98%;" />
                         <input type="button" id="btnAddrno2.*" style="display:none;">
+                    </td>
+                    <td><input type="text" id="txtOtype.*" style="width:98%;" />
+                        <input type="text" id="txtProductno.*" style="width:98%;" />
+                        <input type="button" id="btnAddrno3.*" style="display:none;">
                     </td>
                     <td>
                         <input type="text" id="txtProduct.*" style="width:95%;"/>
@@ -618,7 +647,7 @@
                     <td><input type="text" id="txtVolume.*" class="num" style="width:95%;" /></td>
                     <td><input type="text" id="txtWeight.*" class="num" style="width:95%;" /></td>
                     <td><input type="text" id="txtTotal.*" class="num" style="width:95%;" /> </td>
-                    <td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
+                    <td><textarea id="txtMemo.*" class="txt c1" style="height:85px;width:90%;"> </textarea></td>
                     <td bgcolor="white">&nbsp;</td>
             </table>
         <input id="q_sys" type="hidden" />

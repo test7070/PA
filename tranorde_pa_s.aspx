@@ -53,13 +53,15 @@
 				t_custno = $.trim($('#txtAddrno').val());
 				t_comp = $.trim($('#txtAddr').val());
 				t_acomp = $.trim($('#txtAcomp').val());
+				t_worker = $('#txtWorker').val();
 				
 				var t_where = " 1=1 "
 					+q_sqlPara2("datea", t_bdate, t_edate)
 					+q_sqlPara2("date1", t_btrandate, t_etrandate)
 					+q_sqlPara2("noa", t_noa)
-					+q_sqlPara2("custno", t_custno);
-					+q_sqlPara2("cno",t_cno);
+					+q_sqlPara2("custno", t_custno)
+					+q_sqlPara2("cno",t_cno)
+					+q_sqlPara2("worker",t_worker);
 					
 				if(t_comp.length>0)	
 					t_where += " and charindex('"+t_comp+"',comp)>0";
@@ -117,6 +119,10 @@
                 <tr class='seek_tr'>
                     <td class='seek'  style="width:20%;"><a id='lblComp'>客戶名稱</a></td>
                     <td><input class="txt" id="txtAddr" type="text" style="width:215px; font-size:medium;" /></td>
+                </tr>
+                <tr class='seek_tr'>
+                    <td class='seek'  style="width:20%;"><a id='lblWorker'>新增人員</a></td>
+                    <td><input class="txt" id="txtWorker" type="text" style="width:215px; font-size:medium;" /></td>
                 </tr>
 			</table>
 			<!--#include file="../inc/seek_ctrl.inc"-->

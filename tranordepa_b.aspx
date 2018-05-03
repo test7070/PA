@@ -95,6 +95,7 @@
 					<th align="center"><a id=''>數量</a></th>
 					<th align="center"><a id=''>m3</a></th>
 					<th align="center"><a id=''>重量</a></th>
+					<th align="center"><a id=''>備註</a></th>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td style="width:10px;"><input id="chkSel.*" type="checkbox"/></td>
@@ -122,6 +123,7 @@
                     <td style="width:70px;"><input id="txtMount.*" type="text" style="text-align:right;width:95%; background: rgb(237, 237, 238);" readonly="readonly"/></td>
                     <td style="width:70px;"><input id="txtVolume.*" type="text" style="text-align:right;width:95%; background: rgb(237, 237, 238);" readonly="readonly"/></td>
                     <td style="width:70px;"><input id="txtWeight.*" type="text" style="text-align:right;width:95%; background: rgb(237, 237, 238);" readonly="readonly"/></td>
+                    <td style="width:120px;"><textarea id="txtMemo.*" class="txt c1" style="height:50px;width:98%;"> </textarea></td>
 				</tr>
 			</table>
 		</div>

@@ -32,8 +32,8 @@
             aPop = new Array(['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
             , ['txtAddrno', 'lblAddr_js', 'cust', 'noa,nick', 'txtAddrno,txtAddr', 'cust_b.aspx']
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,nick', 'txtCustno_,txtCust_', 'cust_b.aspx']
-            , ['txtAddrno_', 'btnAddrno_', 'addr2', 'noa,addr,conn,tel,address', 'txtAddrno_,txtAddr_,txtConn_,txtTel_,txtAddress_', 'addr2_b.aspx']
-            , ['txtAddrno2_', 'btnAddrno2_', 'addr2', 'noa,addr,conn,tel,address', 'txtAddrno2_,txtAddr2_,txtLat_,txtLat2_,txtAddress2_', 'addr2_b.aspx']
+            , ['txtAddrno_', 'btnAddrno_', 'addr2', 'noa,addr,conn,tel,address,direction', 'txtAddrno_,txtAddr_,txtConn_,txtTel_,txtAddress_,txtProduct2_', 'addr2_b.aspx']
+            , ['txtAddrno2_', 'btnAddrno2_', 'addr2', 'noa,addr,conn,tel,address,direction', 'txtAddrno2_,txtAddr2_,txtLat_,txtLat2_,txtAddress2_,txtProductno2_', 'addr2_b.aspx']
             , ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
             , ['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']
             );
@@ -95,8 +95,8 @@
                                 if (!b_ret || b_ret.length == 0)
                                     return;
                                     ret = q_gridAddRow(bbsHtm, 'tbbs', 
-                                    'txtOrdeno,txtNo2,txtBdate,txtConn,txtTel,txtAddress,txtLat,txtLat2,txtAddress2,txtProductno,txtProduct,txtUnit,txtMount,txtVolume,txtTotal,txtAddrno,txtAddrno2,txtAddr,txtAddr2,txtTypea,txtTvolume,txtWeight', b_ret.length, b_ret, 
-                                    'noa,noq,trandate,conn,tel,address,containerno1,containerno2,address2,productno,product,unit,mount,price,total,addrno,addrno2,addr,addr2,otype,volume,weight',',txtConn,txtProductno,txtProduct,txtUnit,txtMount,txtTotal');
+                                    'txtOrdeno,txtNo2,txtBdate,txtConn,txtTel,txtAddress,txtLat,txtLat2,txtAddress2,txtProductno,txtProduct,txtUnit,txtMount,txtVolume,txtTotal,txtAddrno,txtAddrno2,txtAddr,txtAddr2,txtTypea,txtTvolume,txtWeight,txtProduct2,txtProductno2', b_ret.length, b_ret, 
+                                    'noa,noq,trandate,conn,tel,address,containerno1,containerno2,address2,productno,product,unit,mount,price,total,addrno,addrno2,addr,addr2,otype,volume,weight,product2,productno2',',txtConn,txtProductno,txtProduct,txtUnit,txtMount,txtTotal');
                              }
                         break;
                     case q_name + '_s':
@@ -429,7 +429,7 @@
                 margin: -1px;
             }
             .dbbs {
-                width: 2600px;
+                width: 2800px;
             }
             .tbbs a {
                 font-size: medium;
@@ -578,15 +578,16 @@
 			</div>
 		</div>
 		<div class='dbbs' >
-			<table id="tbbs" class='tbbs' style="width:1980px;">
+			<table id="tbbs" class='tbbs' style="width:2100px;">
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:105px"><a>預計配送日期<br>裝車日期</a></td>
 					<td align="center" style="width:70px"><a>出車時間</a></td>
 					<td align="center" style="width:60px;display: none;"><a>SFD</a></td>
-					<td align="center" style="width:200px"><a>取貨地<br>寄件人 / 電話<br>地址<br>取貨日期時間</a></td>
-					<td align="center" style="width:200px"><a>配送地<br>收件人 / 電話<br>地址<br>送達日期時間</a></td>
+					<td align="center" style="width:200px"><a>取貨地<br>寄件人 / 電話<br>地址<br>取貨日期時間<br>特殊需求</a></td>
+					<td align="center" style="width:200px"><a>配送地<br>收件人 / 電話<br>地址<br>送達日期時間<br>特殊需求</a></td>
+					<td align="center" style="width:100px"><a>中繼站</a></td>
 					<td align="center" style="width:85px"><a>SFD擔當 / 倉庫聯絡人</a></td>
 					<td align="center" style="width:70px"><a>儲位</a></td>
 					<td align="center" style="width:150px"><a>尺寸</a></td>
@@ -603,6 +604,7 @@
                     <td align="center" style="width:100px"><a>準備工具<br>助理需求</a></td>               
                     <td align="center" style="width:200px"><a>訂單編號<br>銷貨單單號</a></td>
                     <td align="center" style="width:100px"><a>備註</a></td>
+                    <!--<td align="center" style="width:40px"><a>結案</a></td>-->
 				</tr>
 				<tr class="data" style='background:#cad3ff;'>
 					<td align="center">
@@ -622,6 +624,7 @@
                         <input type="text" id="txtTel.*" style="width:53%;" />
                         <input type="text" id="txtAddress.*" style="width:98%;" />
                         <input type="text" id="txtTime1.*" style="width:98%;" />
+                        <input type="text" id="txtProduct2.*" style="width:98%;" />
                         <input type="button" id="btnAddrno.*" style="display:none;">
                     </td>
                     <td>
@@ -631,7 +634,13 @@
                         <input type="text" id="txtLat2.*" style="width:53%;" />
                         <input type="text" id="txtAddress2.*" style="width:98%;" />
                         <input type="text" id="txtTime2.*" style="width:98%;" />
+                        <input type="text" id="txtProductno2.*" style="width:98%;" />
                         <input type="button" id="btnAddrno2.*" style="display:none;">
+                    </td>
+                    <td>
+                        <input type="text" id="txtAddrno3.*" style="width:98%;" />
+                        <input type="text" id="txtAddr3.*" style="width:98%;" />
+                        <input type="button" id="btnAddno3.*" style="display:none;">
                     </td>
                     <td><input type="text" id="txtLng2.*" style="width:95%;"/></td>
                     <td><input type="text" id="txtLng.*" style="width:95%;"/></td>
@@ -655,7 +664,7 @@
                     </td>
                     <td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
                     <td><input type="text" id="txtCalctype.*" style="width:95%;"/></td>
-                    <td><input type="text" id="txtAddr3.*" style="width:95%;"/>
+                    <td><input type="text" id="txtMemo2.*" style="width:95%;"/>
                         <input type="text" id="txtPaths.*" style="width:95%;"/></td>
 					<td id='hid_ordeno.*'>
                         <input type="text" id="txtOrdeno.*" style="width:60%;" />
@@ -663,6 +672,7 @@
                         <input type="text" id="txtAllowcar.*" style="width:98%;"/>
                     </td>
                     <td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
+                   <!--<td align="center"><input id="chkChk1.*" type="checkbox"/></td>-->
 				</tr>
 			</table>
 		</div>
