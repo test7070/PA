@@ -294,7 +294,7 @@ declare @tmp table(
 	unit nvarchar(50),
 	volume float,
 	size nvarchar(100),
-	type nvarchar(50),
+	type float,
 	weight float,
 	addr3 nvarchar(100),
 	title1 nvarchar(50),
@@ -319,7 +319,7 @@ declare @tmp table(
 	so nvarchar(max)
 )
 insert @tmp
-select '1',0,0,a.addrno,a.addr,b.mount,b.unit,tvolume,b.product,calctype,b.weight,memo2,
+select '9',0,0,a.addrno,a.addr,b.mount,b.unit,tvolume,b.product,1,b.weight,b.memo2,
 case when c.stype like '%郵寄%' or c.stype like '%自送%' then '銷貨單單號' end
 ,case when c.stype like '%順送%' then '(160)' else(case when c.stype like '%專車%' then '(600)' end) end
 ,b.memo,b.addrno,b.addr,b.conn,b.tel,b.address,b.time1,b.addr2,b.lat,b.lat2,b.address2,b.time2,a.memo,b.lng2,c.so,'',b.total,b.allowcar
@@ -331,6 +331,13 @@ and (a.cno between @t_bcno and @t_ecno)
 and (a.addrno between @t_bcustno and @t_ecustno)
 and (b.driverno between @t_bdriverno and @t_edriverno)
 and (c.so between @t_bvnoa and @t_evnoa)
+
+insert @tmp
+select '1','','',custno,comp,mount,unit,volume,size,sum(type),weight,addr3,title1,title2,memo1,addrno1,addr1,conn1,tel1,address1,time1,addr2,conn2,tel2,address2,time2,memo2,name,vnoa,memo3,total,so
+from @tmp
+group by custno,comp,mount,unit,volume,size,weight,addr3,title1,title2,memo1,addrno1,addr1,conn1,tel1,address1,time1,addr2,conn2,tel2,address2,time2,memo2,name,vnoa,memo3,total,so
+
+delete @tmp where gno='9'
 
 declare @pageline int =3--一頁3個品項
 
@@ -406,7 +413,7 @@ declare @tmp table(
 	driver nvarchar(50)
 )
 insert @tmp
-select '1',0,0,a.addrno,a.addr,b.mount,b.unit,tvolume,addrno3,calctype,b.weight,memo2
+select '1',0,0,a.addrno,a.addr,b.mount,b.unit,tvolume,addrno3,calctype,b.weight,b.memo2
 ,b.memo,b.addrno,b.addr,b.conn,b.tel,b.address,b.time1,b.addr2,b.lat,b.lat2,b.address2,b.time2
 ,b.lng2,b.total,driver
 from view_tranvcces b left join view_tranvcce a on a.noa=b.noa
@@ -416,7 +423,7 @@ where
 and (a.cno between @t_bcno and @t_ecno)
 and (a.addrno between @t_bcustno and @t_ecustno)
 and (b.driverno between @t_bdriverno and @t_edriverno)
---and c.stype like '%海運%'
+and c.stype like '%海運%'
 
 declare @pageline int =4--一頁4個品項
 
