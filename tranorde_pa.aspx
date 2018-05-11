@@ -73,10 +73,14 @@
             }
             function mainPost() {
                 q_mask(bbmMask);
-                q_cmbParse("cmbStype",',郵寄,順送,自送,專車,空運,收貨,海運'); 
+                q_cmbParse("combStype",',郵寄,順送,自送,專車,空運,收貨,海運'); 
                 if(r_len==4){           
                     $.datepicker.r_len=4;
                 }
+                
+                $('#combStype').change(function() {
+                    $('#txtStype').val($('#combStype').find("option:selected").text());
+                });
             }
             function bbsAssign() {
                 for (var i = 0; i < q_bbsCount; i++) {
@@ -568,7 +572,8 @@
                         <td><span> </span><a id="lblSo_pa" class="lbl">帳單編號</a></td>
                         <td colspan="2"><input id="txtSo" type="text" class="txt c1"/></td>
                         <td><span> </span><a id="lblStype_pa" class="lbl">JOB TYPE</a></td>
-                        <td><select id="cmbStype" style="width: 100%;"> </select></td> 
+                        <td><input id="txtStype" type="text" class="txt c1"style="width: 80%;"/>
+                            <select id="combStype" style="width: 20%;"> </select></td> 
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblMemo" class="lbl"> </a></td>
