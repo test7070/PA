@@ -64,7 +64,8 @@
 
             function mainPost() {
                 q_mask(bbmMask);
-                
+                q_cmbParse("combStype",',郵寄,順送,自送,專車,空運,收貨,海運'); 
+                q_cmbParse("cmbNo2",',O,F'); 
                 if(r_len==4){           
                     $.datepicker.r_len=4;
                 }
@@ -514,7 +515,7 @@
 						<td align="center" style="display:none;"><a> </a></td>
 						<td align="center" style="width:20%"><a>日期</a></td>
 						<td align="center" style="width:20%"><a>電腦編號</a></td>
-						<td align="center" style="width:20%"><a>客戶</a></td>
+						<td align="center" style="width:40%"><a>客戶</a></td>
 					</tr>
 					<tr>
 						<td>
@@ -560,9 +561,19 @@
                         </td> 
                     </tr>
 					<tr>
-						<td><span> </span><a id="lblMemo" class="lbl" > </a></td>
-						<td colspan="5"><textarea id="txtMemo" style="height:40px;" class="txt c1"> </textarea></td>
-					</tr>
+                        <td><span> </span><a id="lblOrdeno_pa" class="lbl" >帳款編號</a></td>
+                        <td><input id="txtOrdeno" type="text" class="txt c1" /></td>
+                        <td><span> </span><a id="lblUnit_pa" class="lbl" >JOB TYPE</a></td>
+                        <td><input id="txtUnit" type="text" class="txt" style="width: 70%" />
+                            <select id="combStype" style="width: 20%;"> </select> 
+                        </td>
+                        <td><span> </span><a id="lblNo2_pa" class="lbl" >客戶性質</a></td>
+                        <td><select id="cmbNo2" style="width: 20%;"> </select></td>                   
+                    </tr>
+                    <tr>
+                        <td><span> </span><a id="lblMemo" class="lbl" > </a></td>
+                        <td colspan="5"><textarea id="txtMemo" style="height:60px;" class="txt c1"> </textarea></td>
+                    </tr>
 					<tr>
 						<td><span> </span><a id="lblWorker" class="lbl" > </a></td>
 						<td>
@@ -572,7 +583,7 @@
 						<td>
 						<input id="txtWorker2" type="text" class="txt c1" />
 						</td>
-						<td><input id="btnOrde" type="button" value="訂單匯入" style="width:100%;"/></td>
+						<!--<td><input id="btnOrde" type="button" value="訂單匯入" style="width:100%;"/></td>-->
 					</tr>
 				</table>
 			</div>
@@ -583,11 +594,8 @@
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
 					<td align="center" style="width:105px"><a>預計配送日期<br>裝車日期</a></td>
-					<td align="center" style="width:70px"><a>出車時間</a></td>
-					<td align="center" style="width:60px;display: none;"><a>SFD</a></td>
 					<td align="center" style="width:200px"><a>取貨地<br>寄件人 / 電話<br>地址<br>取貨日期時間<br>特殊需求</a></td>
 					<td align="center" style="width:200px"><a>配送地<br>收件人 / 電話<br>地址<br>送達日期時間<br>特殊需求</a></td>
-					<td align="center" style="width:100px"><a>中繼站</a></td>
 					<td align="center" style="width:85px"><a>SFD擔當 / 倉庫聯絡人</a></td>
 					<td align="center" style="width:70px"><a>儲位</a></td>
 					<td align="center" style="width:150px"><a>尺寸</a></td>
@@ -595,14 +603,12 @@
 					<td align="center" style="width:70px"><a>數量</a></td>
 					<td align="center" style="width:70px"><a>m3</a></td>
 					<td align="center" style="width:70px"><a>重量</a></td>
-					<td align="center" style="width:70px;display: none;"><a>單價</a></td>
                     <td align="center" style="width:70px"><a>應收金額</a></td>
+                    <td align="center" style="width:70px"><a>出車時間</a></td>
+                    <td align="center" style="width:100px"><a>中繼站</a></td>
 					<td align="center" style="width:60px"><a>車牌</a></td>
-                    <td align="center" style="width:60px"><a>司機</a></td>
-                    <td align="center" style="width:70px"><a>應付金額</a></td>
-                    <td align="center" style="width:70px"><a>車型</a></td>
                     <td align="center" style="width:100px"><a>準備工具<br>助理需求</a></td>               
-                    <td align="center" style="width:200px"><a>訂單編號<br>銷貨單單號</a></td>
+                    <td align="center" style="width:200px"><a>銷貨單單號</a></td>
                     <td align="center" style="width:100px"><a>備註</a></td>
                     <!--<td align="center" style="width:40px"><a>結案</a></td>-->
 				</tr>
@@ -615,8 +621,6 @@
                     <td><input type="text" id="txtBdate.*" style="width:95%;" />
                         <input type="text" id="txtEdate.*" style="width:95%;" />
                     </td>
-                    <td><input type="text" id="txtTime3.*" style="width:95%;" /> </td>
-                    <td style="display: none;"><input type="text" id="txtTypea.*" style="width:95%;display: none;" /> </td>
                     <td>
                         <input type="text" id="txtAddrno.*" style="width:40%;" />
                         <input type="text" id="txtAddr.*" style="width:53%;" />
@@ -637,11 +641,6 @@
                         <input type="text" id="txtProductno2.*" style="width:98%;" />
                         <input type="button" id="btnAddrno2.*" style="display:none;">
                     </td>
-                    <td>
-                        <input type="text" id="txtAddrno3.*" style="width:98%;" />
-                        <input type="text" id="txtAddr3.*" style="width:98%;" />
-                        <input type="button" id="btnAddno3.*" style="display:none;">
-                    </td>
                     <td><input type="text" id="txtLng2.*" style="width:95%;"/></td>
                     <td><input type="text" id="txtLng.*" style="width:95%;"/></td>
 					<td>
@@ -651,24 +650,20 @@
                     <td><input type="text" id="txtMount.*" class="num" style="width:95%;"/></td>
                     <td><input type="text" id="txtTvolume.*" class="num" style="width:95%;"/></td>
                     <td><input type="text" id="txtWeight.*" class="num" style="width:95%;"/></td>
-                    <td style="display: none;"><input type="text" id="txtVolume.*" class="num" style="width:95%;;display: none;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtTime3.*" style="width:95%;" /> </td>
+					<td>
+                        <input type="text" id="txtAddrno3.*" style="width:98%;" />
+                        <input type="text" id="txtAddr3.*" style="width:98%;" />
+                        <input type="button" id="btnAddno3.*" style="display:none;">
+                    </td>
 					<td>
                         <input type="text" id="txtCarno.*" style="width:95%;"/>
                         <input type="button" id="btnCarno.*" style="display:none;"/>
                     </td>
-                    <td>
-                        <input type="text" id="txtDriverno.*" style="width:95%"/>
-                        <input type="text" id="txtDriver.*" style="width:95%"/>
-                        <input type="button" id="btnDriver.*" style="display:none;"/>
-                    </td>
-                    <td><input type="text" id="txtTotal2.*" class="num" style="width:95%;"/></td>
-                    <td><input type="text" id="txtCalctype.*" style="width:95%;"/></td>
                     <td><input type="text" id="txtMemo2.*" style="width:95%;"/>
                         <input type="text" id="txtPaths.*" style="width:95%;"/></td>
-					<td id='hid_ordeno.*'>
-                        <input type="text" id="txtOrdeno.*" style="width:60%;" />
-                        <input type="text" id="txtNo2.*" style="width:33%;" />
+					<td>
                         <input type="text" id="txtAllowcar.*" style="width:98%;"/>
                     </td>
                     <td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
