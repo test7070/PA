@@ -75,14 +75,18 @@
                 $('#textBdate').datepicker();
                 $('#textEdate').datepicker();
 
-                $('#btnOrde').click(function(e){
+                /*$('#btnOrde').click(function(e){
                     t_custno=$('#txtAddrno').val();
                     t_cno=$('#txtCno').val();
                     t_datea='';
                     var t_where ='';
                     q_box("tranordepa_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({cno:t_cno,custno:t_custno,trandate:t_datea,page:'tranvcce_pa'}), "tranorde_tranvcce", "95%", "95%", '');
-                    /*var t_where = "(caseno='"+t_cno+"') and (custno='"+t_custno+"') and (trandate='"+t_datea+"') ";
-                    q_box("tranordepa_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranorde_tranvcce', "100%", "100%", "");*/
+                    var t_where = "(caseno='"+t_cno+"') and (custno='"+t_custno+"') and (trandate='"+t_datea+"') ";
+                    q_box("tranordepa_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranorde_tranvcce', "100%", "100%", "");
+                });*/
+                
+                $('#combStype').change(function() {
+                    $('#txtUnit').val($('#combStype').find("option:selected").text());
                 });
 
             }
@@ -593,6 +597,7 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
+					<td align="center" style="width:80px"><a>帳款日期</a></td>
 					<td align="center" style="width:105px"><a>預計配送日期<br>裝車日期</a></td>
 					<td align="center" style="width:200px"><a>取貨地<br>寄件人 / 電話<br>地址<br>取貨日期時間<br>特殊需求</a></td>
 					<td align="center" style="width:200px"><a>配送地<br>收件人 / 電話<br>地址<br>送達日期時間<br>特殊需求</a></td>
@@ -603,7 +608,8 @@
 					<td align="center" style="width:70px"><a>數量</a></td>
 					<td align="center" style="width:70px"><a>m3</a></td>
 					<td align="center" style="width:70px"><a>重量</a></td>
-                    <td align="center" style="width:70px"><a>應收金額</a></td>
+                    <td align="center" style="width:70px"><a>運費金額</a></td>
+                    <td align="center" style="width:70px"><a>代收金額</a></td>
                     <td align="center" style="width:70px"><a>出車時間</a></td>
                     <td align="center" style="width:100px"><a>中繼站</a></td>
 					<td align="center" style="width:60px"><a>車牌</a></td>
@@ -618,6 +624,7 @@
 						<input type="text" id="txtNoq.*" style="display:none;"/>
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+                    <td><input type="text" id="txtUnit2.*" style="width:95%;" /></td>
                     <td><input type="text" id="txtBdate.*" style="width:95%;" />
                         <input type="text" id="txtEdate.*" style="width:95%;" />
                     </td>
@@ -651,6 +658,7 @@
                     <td><input type="text" id="txtTvolume.*" class="num" style="width:95%;"/></td>
                     <td><input type="text" id="txtWeight.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="width:95%;"/></td>
+					<td><input type="text" id="txtTotal3.*" class="num" style="width:95%;"/></td>
 					<td><input type="text" id="txtTime3.*" style="width:95%;" /> </td>
 					<td>
                         <input type="text" id="txtAddrno3.*" style="width:98%;" />
@@ -667,7 +675,6 @@
                         <input type="text" id="txtAllowcar.*" style="width:98%;"/>
                     </td>
                     <td><input type="text" id="txtMemo.*" style="width:95%;" /></td>
-                   <!--<td align="center"><input id="chkChk1.*" type="checkbox"/></td>-->
 				</tr>
 			</table>
 		</div>
