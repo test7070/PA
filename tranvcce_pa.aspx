@@ -602,9 +602,9 @@
 					<td align="center" style="width:200px"><a>取貨地<br>寄件人 / 電話<br>地址<br>取貨日期時間<br>特殊需求</a></td>
 					<td align="center" style="width:200px"><a>配送地<br>收件人 / 電話<br>地址<br>送達日期時間<br>特殊需求</a></td>
 					<td align="center" style="width:85px"><a>SFD擔當 / 倉庫聯絡人</a></td>
-					<td align="center" style="width:70px"><a>儲位</a></td>
 					<td align="center" style="width:150px"><a>尺寸</a></td>
 					<td align="center" style="width:40px"><a>單位</a></td>
+					<td align="center" style="width:70px"><a>儲位</a></td>
 					<td align="center" style="width:70px"><a>數量</a></td>
 					<td align="center" style="width:70px"><a>m3</a></td>
 					<td align="center" style="width:70px"><a>重量</a></td>
@@ -653,7 +653,7 @@
 					<td>
                         <input type="text" id="txtProduct.*" style="width:95%;" />      
                     </td>
-                    <td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
+                    
                     <td><input type="text" id="txtMount.*" class="num" style="width:95%;"/></td>
                     <td><input type="text" id="txtTvolume.*" class="num" style="width:95%;"/></td>
                     <td><input type="text" id="txtWeight.*" class="num" style="width:95%;"/></td>
