@@ -20,8 +20,8 @@
             var q_readonlys = ['txtOrdeno', 'txtNo2'];
             var bbmNum = [];
             var bbsNum = [['txtMount', 10, 0, 1],['txtVolume', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTotal2', 10, 0, 1]];
-            var bbmMask = [['txtTimea', '9999/99/99']];
-            var bbsMask = [['txtBdate', '9999/99/99'],['txtEdate', '9999/99/99'],['txtTime3', '99:99']];
+            var bbmMask = [['txtTimea', '999/99/99']];
+            var bbsMask = [['txtBdate', '999/99/99'],['txtEdate', '999/99/99'],['txtUnit2', '999/99/99'],['txtTime3', '99:99']];
             q_sqlCount = 6;
             brwCount = 6;
             brwList = [];
@@ -60,30 +60,32 @@
                 /*for(var i=0;i<q_bbsCount;i++){
                     $('#txtTotal_'+i).val(q_mul(q_float('txtVolume_' + i),q_float('txtMount_' + i)));
                 }*/
+                for(var i=0;i<q_bbsCount;i++){
+                    var t_style=$('#txtProduct_'+i).val().split(' ');
+                    var t_spec=t_style[0].split('*');
+                    var t_spec1=t_style[0].split('x');
+                    if (t_spec.length>1){
+                        $('#txtTvolume_'+i).val(q_mul(q_mul(t_spec[0],t_spec[1]),t_spec[2]));
+                    }else if(t_spec1.length>1){
+                        $('#txtTvolume_'+i).val(q_mul(q_mul(t_spec1[0],t_spec1[1]),t_spec1[2]));
+                    }else{
+                        $('#txtTvolume_'+i).val(0);
+                    }
+                }
             }
 
             function mainPost() {
                 q_mask(bbmMask);
                 q_cmbParse("combStype",',郵寄,順送,自送,專車,空運,收貨,海運'); 
-                q_cmbParse("cmbNo2",',O,F'); 
+                q_cmbParse("cmbNo2",',O,F');
+                q_cmbParse("cmbLng",',常日班,夜間班','s'); 
                 if(r_len==4){           
                     $.datepicker.r_len=4;
                 }
                 
                 $('#txtDatea').datepicker();
                 $('#txtTimea').datepicker();
-                $('#textBdate').datepicker();
-                $('#textEdate').datepicker();
-
-                /*$('#btnOrde').click(function(e){
-                    t_custno=$('#txtAddrno').val();
-                    t_cno=$('#txtCno').val();
-                    t_datea='';
-                    var t_where ='';
-                    q_box("tranordepa_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where+";"+";"+JSON.stringify({cno:t_cno,custno:t_custno,trandate:t_datea,page:'tranvcce_pa'}), "tranorde_tranvcce", "95%", "95%", '');
-                    var t_where = "(caseno='"+t_cno+"') and (custno='"+t_custno+"') and (trandate='"+t_datea+"') ";
-                    q_box("tranordepa_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranorde_tranvcce', "100%", "100%", "");
-                });*/
+                
                 
                 $('#combStype').change(function() {
                     $('#txtUnit').val($('#combStype').find("option:selected").text());
@@ -198,7 +200,11 @@
                             sum();
                     });
                     
-                    $('#txtVolume_' + i).change(function() {
+                    $('#txtTvolume_' + i).change(function() {
+                            sum();
+                    });
+                    
+                    $('#txtProduct_' + i).change(function() {
                             sum();
                     });
                 }
@@ -572,7 +578,7 @@
                             <select id="combStype" style="width: 20%;"> </select> 
                         </td>
                         <td><span> </span><a id="lblNo2_pa" class="lbl" >客戶性質</a></td>
-                        <td><select id="cmbNo2" style="width: 20%;"> </select></td>                   
+                        <td><select id="cmbNo2" style="width: 75%;"> </select></td>                   
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblMemo" class="lbl" > </a></td>
@@ -604,7 +610,6 @@
 					<td align="center" style="width:85px"><a>SFD擔當 / 倉庫聯絡人</a></td>
 					<td align="center" style="width:150px"><a>尺寸</a></td>
 					<td align="center" style="width:40px"><a>單位</a></td>
-					<td align="center" style="width:70px"><a>儲位</a></td>
 					<td align="center" style="width:70px"><a>數量</a></td>
 					<td align="center" style="width:70px"><a>m3</a></td>
 					<td align="center" style="width:70px"><a>重量</a></td>
@@ -613,7 +618,8 @@
                     <td align="center" style="width:70px"><a>出車時間</a></td>
                     <td align="center" style="width:100px"><a>中繼站</a></td>
 					<td align="center" style="width:60px"><a>車牌</a></td>
-                    <td align="center" style="width:100px"><a>準備工具<br>助理需求</a></td>               
+                    <td align="center" style="width:100px"><a>準備工具<br>助理需求</a></td>
+                    <td align="center" style="width:80px"><a>作業型態</a></td>              
                     <td align="center" style="width:200px"><a>銷貨單單號</a></td>
                     <td align="center" style="width:100px"><a>備註</a></td>
                     <!--<td align="center" style="width:40px"><a>結案</a></td>-->
@@ -649,11 +655,10 @@
                         <input type="button" id="btnAddrno2.*" style="display:none;">
                     </td>
                     <td><input type="text" id="txtLng2.*" style="width:95%;"/></td>
-                    <td><input type="text" id="txtLng.*" style="width:95%;"/></td>
 					<td>
                         <input type="text" id="txtProduct.*" style="width:95%;" />      
                     </td>
-                    
+                    <td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
                     <td><input type="text" id="txtMount.*" class="num" style="width:95%;"/></td>
                     <td><input type="text" id="txtTvolume.*" class="num" style="width:95%;"/></td>
                     <td><input type="text" id="txtWeight.*" class="num" style="width:95%;"/></td>
@@ -670,7 +675,8 @@
                         <input type="button" id="btnCarno.*" style="display:none;"/>
                     </td>
                     <td><input type="text" id="txtMemo2.*" style="width:95%;"/>
-                        <input type="text" id="txtPaths.*" style="width:95%;"/></td>
+                        <input type="text" id="txtPaths.*" style="width:95%;"/></td>   
+                    <td><select id="cmbLng.*" class="txt" style="width:95%;"> </select></td>
 					<td>
                         <input type="text" id="txtAllowcar.*" style="width:98%;"/>
                     </td>
