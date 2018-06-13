@@ -620,7 +620,7 @@
 					<td align="center" style="width:60px"><a>車牌</a></td>
                     <td align="center" style="width:100px"><a>準備工具<br>助理需求</a></td>
                     <td align="center" style="width:80px"><a>作業型態</a></td>              
-                    <td align="center" style="width:200px"><a>銷貨單單號</a></td>
+                    <td align="center" style="width:150px"><a>銷貨單單號</a></td>
                     <td align="center" style="width:100px"><a>備註</a></td>
                     <!--<td align="center" style="width:40px"><a>結案</a></td>-->
 				</tr>
