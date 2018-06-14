@@ -228,19 +228,20 @@ declare @tmp table(
 	datea nvarchar(10),
 	vno nvarchar(50),
 	total float,
-	memo nvarchar(max)
+	memo nvarchar(max),
+	no2 nvarchar(10)
 )
 insert @tmp 
-select '0',a.custno,a.comp,'',isnull(a.stype,''),b.date1,isnull(a.so,''),SUM(isnull(b.total,0)),a.memo 
-from view_tranordes b left join view_tranorde a on a.noa=b.noa 
+select '0',a.custno,a.comp,'',isnull(a.unit,''),b.unit2,isnull(a.ordeno,''),SUM(isnull(b.total,0)),a.memo,a.no2 
+from view_tranvcces b left join view_tranvcce a on a.noa=b.noa 
 where (a.cno between @t_bcno and @t_ecno) 
 and (a.custno between @t_bcustno and @t_ecustno) 
-and (a.so between @t_bvnoa and @t_evnoa) 
-and (b.date1 between @t_bvdate and @t_evdate) 
-and (a.date1 between @t_bdate and @t_edate)
+and (a.ordeno between @t_bvnoa and @t_evnoa) 
+and (b.unit2 between @t_bvdate and @t_evdate) 
+and (a.timea between @t_bdate and @t_edate)
 and (a.datea between @t_bodate and @t_eodate)
-and (len(@t_stype)=0 or a.stype=@t_stype) 
-group by a.custno,a.comp,isnull(a.stype,''),b.date1,isnull(a.so,''),a.memo 
+and (len(@t_stype)=0 or a.unit=@t_stype) 
+group by a.custno,a.comp,isnull(a.unit,''),b.unit2,isnull(a.ordeno,''),a.memo,a.no2
 
 update a
 set rr=rx
@@ -261,7 +262,7 @@ dbo.getcomma(total,0)total
 ,* from @tmp
 order by custno,gno
 ;
-------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 z_tran_pa5:--z_tran_pa5
 declare @t_bdate nvarchar(20)
 declare @t_edate nvarchar(20)

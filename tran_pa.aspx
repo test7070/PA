@@ -23,8 +23,8 @@
 			var q_readonlyt = [];
 			var bbmNum = new Array();
 			var bbmMask = new Array(['txtDatea', '999/99/99'],['txtTrandate', '999/99/99']);
-			var bbsNum = new Array(['txtTotal', 10, 0, 1],['txtTotal2', 10, 0, 1],['txtPrice', 10, 0, 1],['txtPrice2', 10, 0, 1],['txtPrice3', 10, 0, 1],['txtMount', 10, 0, 1],['txtPlus', 10, 0, 1],['txtMinus', 10, 0, 1]);
-			var bbsMask = new Array(['txtDatea', '999/99/99'],['txtTrandate', '999/99/99'],['txtltime', '99:99'],['txtStime', '99:99']);
+			var bbsNum = new Array(['txtTotal', 10, 0, 1],['txtVolume', 10,2, 1],['txtWeight', 10,2, 1],['txtTotal2', 10, 0, 1],['txtPrice', 10, 0, 1],['txtPrice2', 10, 0, 1],['txtPrice3', 10, 0, 1],['txtMount', 10, 0, 1],['txtPlus', 10, 0, 1],['txtMinus', 10, 0, 1]);
+			var bbsMask = new Array(['txtDatea', '999/99/99'],['txtTrandate', '999/99/99'],['txtDtime', '999/99/99'],['txtTimea', '999/99/99']);
 			var bbtNum  = new Array(); 
 			var bbtMask = new Array();
 			q_sqlCount = 6;
@@ -39,8 +39,9 @@
 			aPop = new Array(
 				['txtCno', 'lblCno', 'acomp', 'noa,acomp', 'txtCno,txtAcomp', 'acomp_b.aspx']
 				, ['txtAddrno', 'lblAddrno', 'cust', 'noa,comp', 'txtAddrno,txtAddr', 'cust_b.aspx']
-				, ['txtStraddrno_', 'btnStraddr_', 'addr2', 'noa,addr,address', 'txtStraddrno_,txtStraddr_,txtSaddr_', 'addr2_b.aspx']
-                , ['txtEndaddrno_', 'btnEndaddr_', 'addr2', 'noa,addr,address', 'txtEndaddrno_,txtEndaddr_,txtAaddr_', 'addr2_b.aspx']
+				, ['txtStraddrno_', 'btnStraddr_', 'addr2', 'noa,addr,conn,tel,address,direction', 'txtStraddrno_,txtStraddr_,txtSalesno_,txtAddno4_,txtSaddr_', 'addr2_b.aspx']
+                , ['txtEndaddrno_', 'btnEndaddr_', 'addr2', 'noa,addr,conn,tel,address,direction', 'txtEndaddrno_,txtEndaddr_,txtSales_,txtAdd4_,txtAaddr_', 'addr2_b.aspx']
+                , ['txtAddno3_', 'btnAddno3_', 'addr2', 'noa,addr', 'txtAddno3_,txtAdd3_', 'addr2_b.aspx']
 				, ['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']
 				, ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
 				, ['txtDriverno', 'lblDriver', 'driver', 'noa,namea', 'txtDriverno,txtDriver', 'driver_b.aspx']
@@ -50,10 +51,18 @@
 			function sum() {
 			    if (!(q_cur == 1 || q_cur == 2))
                     return;
-                /*for(var i=0;i<q_bbsCount;i++){
-                    $('#txtTotal_'+i).val(q_mul(q_float('txtPrice_' + i),q_float('txtMount_' + i)));
-                }*/
-				
+				for(var i=0;i<q_bbsCount;i++){
+                    var t_style=$('#txtProduct_'+i).val().split(' ');
+                    var t_spec=t_style[0].split('*');
+                    var t_spec1=t_style[0].split('x');
+                    if (t_spec.length>1){
+                        $('#txtVolume_'+i).val(q_mul(q_mul(t_spec[0],t_spec[1]),t_spec[2]));
+                    }else if(t_spec1.length>1){
+                        $('#txtVolume_'+i).val(q_mul(q_mul(t_spec1[0],t_spec1[1]),t_spec1[2]));
+                    }else{
+                        $('#txtVolume_'+i).val(0);
+                    }
+                }
 			}
 			
 			$(document).ready(function() {
@@ -74,13 +83,13 @@
 			function mainPost() {
 				q_mask(bbmMask);
 				q_getFormat();
+				q_cmbParse("cmbStatus",',常日班,夜間班','s'); 
 				if(r_len==4){           
                     $.datepicker.r_len=4;
                 }
-				q_cmbParse("cmbTtype",'@,1@月結','s');
 				$('#btnOrde').click(function(e){
                     t_custno=$('#txtAddrno').val();
-                    var t_where = "custno='"+t_custno+"' and not exists(select noa,noq from view_trans where view_tranvcces.noa=ordeno and view_tranvcces.noq=caseno)";
+                    var t_where = "custno='"+t_custno+"' and not exists(select noa,noq from view_trans where view_tranvcces.noa=ordeno and view_tranvcces.noq=caseno2)";
                     q_box("tranvcce_pa_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranvcce_tran', "95%", "650px");
                 });
 	
@@ -100,14 +109,7 @@
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnCarno_'+n).click();
                    	});
-                   	
-                    $('#txtUccno_' + i).bind('contextmenu', function(e) {
-                        /*滑鼠右鍵*/
-                        e.preventDefault();
-                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
-                        $('#btnProduct_'+n).click();
-                    });
-                    
+
                     $('#txtStraddrno_' + i).bind('contextmenu', function(e) {
                         /*滑鼠右鍵*/
                         e.preventDefault();
@@ -122,11 +124,14 @@
                         $('#btnEndaddr_'+n).click();
                     });
                     
-                    $('#txtMount_' + i).change(function() {
-                            sum();
+                    $('#txtAddno3_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnAddno3_'+n).click();
                     });
                     
-                    $('#txtPrice_' + i).change(function() {
+                    $('#txtProduct_' + i).change(function() {
                             sum();
                     });
                     
@@ -171,8 +176,8 @@
                             if (!b_ret || b_ret.length == 0)
                                 return;
                                 ret = q_gridAddRow(bbsHtm, 'tbbs', 
-                                'txtOrdeno,txtCaseno2,txtDatea,txtUccno,txtProduct,txtMount,txtUnit,txtTotal,txtCarno,txtDriverno,txtDriver,txtTotal2,txtStel,txtSaddr,txtAtel,txtAaddr,txtCaseuseno,txtUnit2,txtPrice,txtStraddrno,txtEndaddrno,txtStraddr,txtEndaddr,txtCstype', b_ret.length, b_ret, 
-                                'noa,noq,bdate,productno,product,mount,unit,total,carno,driverno,driver,total2,conn,address,lat,address2,lng,unit2,volume,addrno,addrno2,addr,addr2,typea', 'txtOrdeno,txtCaseno2,txtDatea,txtUccno,txtProductno,txtMount');
+                                'txtOrdeno,txtCaseno2,txtDtime,txtDatea,txtTimea,txtStraddrno,txtStraddr,txtSalesno,txtAddno4,txtSaddr,txtStime,txtStel,txtEndaddrno,txtEndaddr,txtSales,txtAdd4,txtAaddr,txtLtime,txtAtel,txtCstype,txtProduct,txtMount,txtVolume,txtWeight,txtUnit,txtTotal,txtPrice,txtCarno,txtDriverno,txtDriver,txtQtime,txtAddno3,txtAdd3,txtAddressee,txtSender,cmbStatus,txtCustorde', b_ret.length, b_ret, 
+                                'noa,noq,unit2,bdate,edate,addrno,addr,conn,tel,time1,address,product2,addrno2,addr,lat,lat2,address2,time2,productno2,lng2,product,mount,tvolume,weight,unit,total,total3,carno,driverno,driver,time3,addrno3,addr3,memo2,paths,lng,allowcar', 'txtOrdeno,txtCaseno2,txtDatea,txtUccno,txtProductno,txtMount');
                             }
                         break;
                     case q_name + '_s':
@@ -441,7 +446,7 @@
 				margin: -1px;
 			}
 			.dbbs {
-				width: 1500px;
+				width: 2400px;
 			}
 			.dbbt {
 				width: 2000px;
@@ -574,7 +579,7 @@
 						<td><input id="txtWorker" type="text"  class="txt c1"/></td>
 						<td><span> </span><a id="lblWorker2" class="lbl"> </a></td>
 						<td><input id="txtWorker2" type="text"  class="txt c1"/></td>
-						<td><input id="btnOrde" type="button" value="派車匯入" style="width:100%;"/></td>
+						<td><input id="btnOrde" type="button" value="訂單匯入" style="width:100%;"/></td>
 					</tr>
 				</table>
 			</div>
@@ -584,63 +589,89 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:80px;"><a>收款方式</a></td>
-					<td align="center" style="width:120px"><a>預計配送日期</a></td>
-					<td align="center" style="width:60px;display:none;"><a>SFD</a></td>
-					<td align="center" style="width:200px;"><a>取貨地點</a></td>
-                    <td align="center" style="width:200px;"><a>配送地點</a></td>
-                    <td align="center" style="width:80px;"><a>儲位</a></td>
-					<td align="center" style="width:100px;"><a>尺寸</a></td>
-					<td align="center" style="width:80px;display:none;"><a>單價</a></td>
-					<td align="center" style="width:80px;"><a>件數</a></td>
-					<td align="center" style="width:60px;"><a>單位</a></td>				
-					<td align="center" style="width:80px;"><a>應收運費</a></td>
+					<td align="center" style="width:80px"><a>帳單日期</a></td>
+					<td align="center" style="width:90px"><a>預計配送日期<BR>裝車日期</a></td>
+					<td align="center" style="width:200px"><a>取貨地<br>寄件人 / 電話<br>地址<br>取貨日期時間<br>特殊需求</a></td>
+                    <td align="center" style="width:200px"><a>配送地<br>收件人 / 電話<br>地址<br>送達日期時間<br>特殊需求</a></td>
+                    <td align="center" style="width:85px"><a>SFD擔當 / 倉庫聯絡人</a></td>
+					<td align="center" style="width:150px;"><a>尺寸</a></td>
+					<td align="center" style="width:60px;"><a>單位</a></td>
+					<td align="center" style="width:70px;"><a>儲位</a></td>  
+					<td align="center" style="width:70px;"><a>數量</a></td>
+					<td align="center" style="width:70px"><a>m3</a></td>
+                    <td align="center" style="width:70px"><a>重量</a></td>
+					<td align="center" style="width:80px;"><a>運費金額</a></td>
+					<td align="center" style="width:80px;"><a>代收金額</a></td>
+					<td align="center" style="width:70px"><a>出車時間</a></td>
+                    <td align="center" style="width:90px"><a>中繼站</a></td>
 					<td align="center" style="width:80px;"><a>車牌</a></td>
-					<td align="center" style="width:80px;"><a>司機</a></td>
-					<td align="center" style="width:80px;"><a>應付運費</a></td>
-					<td align="center" style="width:215px;"><a>派車單號</a></td>
+					<td align="center" style="width:100px"><a>準備工具<br>助理需求</a></td>
+                    <td align="center" style="width:80px"><a>作業型態</a></td>
+					<td align="center" style="width:150px;"><a>訂單邊號<BR>銷貨單單號</a></td>
+					<td align="center" style="width:100px;"><a>備註</a></td>
 				</tr>
 				<tr class="data" style='background:#cad3ff;'>
 					<td align="center">
 						<input class="btn"  id="btnMinus.*" type="button" value='-' style=" font-weight: bold;" />
 						<input type="text" id="txtNoq.*" style="display:none;"/>
 					</td>
-					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>					
-					<td><select id="cmbTtype.*" class="txt" style="width:95%;"> </select></td>
-					<td><input type="text" id="txtDatea.*" style="width:95%;" /></td>
-					<td style="display: none;"><input type="text" id="txtCstype.*" style="width:95%;display:none;" /></td>
+					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
+					<td><input type="text" id="txtDtime.*" style="width:95%;" /></td>
+					<td><input type="text" id="txtDatea.*" style="width:95%;" />
+					    <input type="text" id="txtTimea.*" style="width:95%;" />
+					</td>
 					<td>
-					    <input type="text" id="txtStraddrno.*" style="float:left;width:40%;"/>
-					    <input type="text" id="txtStraddr.*" style="float:left;width:55%;"/>
+					    <input type="text" id="txtStraddrno.*" style="float:left;width:30%;"/>
+					    <input type="text" id="txtStraddr.*" style="float:left;width:65%;"/>
+					    <input type="text" id="txtSalesno.*" style="float:left;width:30%;"/>
+					    <input type="text" id="txtAddno4.*" style="float:left;width:65%;"/>
                         <input type="text" id="txtSaddr.*" style="float:left;width:98%;"/>
+                        <input type="text" id="txtStime.*" style="float:left;width:98%;"/>
+                        <input type="text" id="txtStel.*" style="float:left;width:98%;"/>
                         <input type="button" id="btnStraddr.*" style="display:none;">
                     </td>
                     <td>
-                        <input type="text" id="txtEndaddrno.*" style="float:left;width:40%;"/>
-                        <input type="text" id="txtEndaddr.*" style="float:left;width:55%;"/>
+                        <input type="text" id="txtEndaddrno.*" style="float:left;width:30%;"/>
+                        <input type="text" id="txtEndaddr.*" style="float:left;width:65%;"/>
+                        <input type="text" id="txtSales.*" style="float:left;width:30%;"/>
+                        <input type="text" id="txtAdd4.*" style="float:left;width:65%;"/>
                         <input type="text" id="txtAaddr.*" style="float:left;width:98%;"/>
+                        <input type="text" id="txtLtime.*" style="float:left;width:98%;"/>
+                        <input type="text" id="txtAtel.*" style="float:left;width:98%;"/>
                         <input type="button" id="btnEndaddr.*" style="display:none;">
                     </td>
-                    <td><input type="text" id="txtCaseuseno.*" style="width:95%;"/></td>
+                    <td><input type="text" id="txtCstype.*" style="width:95%;" /></td>
 					<td>
 						<input type="text" id="txtProduct.*" style="float:left;width:95%;"/>	
 					</td>
-					<td style="display: none;"><input type="text" id="txtPrice.*" class="num" style="float:left;width:95%;display:none;"/></td>
-					<td><input type="text" id="txtMount.*" class="num" style="float:left;width:95%;"/></td>
 					<td><input type="text" id="txtUnit.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtCaseuseno.*" style="width:95%;"/></td>
+					<td><input type="text" id="txtMount.*" class="num" style="float:left;width:95%;"/></td>
+					<td><input type="text" id="txtVolume.*" class="num" style="float:left;width:95%;"/></td>
+					<td><input type="text" id="txtWeight.*" class="num" style="float:left;width:95%;"/></td>
 					<td><input type="text" id="txtTotal.*" class="num" style="float:center;width:95%;"/></td>
+					<td><input type="text" id="txtPrice.*" class="num" style="float:left;width:95%;"/></td>
+					<td><input type="text" id="txtQtime.*" style="width:95%;"/></td>
+					<td>
+                        <input type="text" id="txtAddno3.*" style="width:95%;"/>
+                        <input type="text" id="txtAdd3.*" style="width:95%;"/>
+                        <input type="button" id="btnAddno3.*" style="display:none;">
+                    </td>
 					<td>
                         <input type="text" id="txtCarno.*" style="width:95%;"/>
+                        <input type="text" id="txtDriverno.*" style="display:none;"/>
+                        <input type="text" id="txtDriver.*" style="display:none;"/>
                         <input type="button" id="btnCarno.*" style="display:none;"/>
                     </td>
                     <td>
-                        <input type="text" id="txtDriverno.*" style="width:95%"/>
-                        <input type="text" id="txtDriver.*" style="width:95%"/>
-                        <input type="button" id="btnDriver.*" style="display:none;"/>
+                        <input type="text" id="txtAddressee.*" style="width:95%;"/>
+                        <input type="text" id="txtSender.*" style="width:95%;"/>
                     </td>
-                    <td><input type="text" id="txtTotal2.*" class="num" style="float:center;width:95%;"/></td>
-					<td><input type="text" id="txtOrdeno.*" style="float:left;width:60%;"/>
-                        <input type="text" id="txtCaseno2.*" style="float:left;width:30%;"/></td>
+                    <td><select id="cmbStatus.*" class="txt" style="width:95%;"> </select></td>
+					<td><input type="text" id="txtOrdeno.*" style="float:left;width:65%;"/>
+                        <input type="text" id="txtCaseno2.*" style="float:left;width:25%;"/>
+                        <input type="text" id="txtCustorde.*" style="float:left;width:95%;"/></td>
+                    <td><input type="text" id="txtMemo.*" style="width:95%;"/></td>
 				</tr>
 			</table>
 		</div>

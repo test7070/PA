@@ -19,7 +19,7 @@
             var q_readonly = ['txtNoa', 'txtWeight','txtTotal', 'txtWorker', 'txtWorker2','txtAddress'];
             var q_readonlys = ['txtOrdeno', 'txtNo2'];
             var bbmNum = [];
-            var bbsNum = [['txtMount', 10, 0, 1],['txtVolume', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTotal2', 10, 0, 1]];
+            var bbsNum = [['txtMount', 10, 0, 1],['txtVolume', 10, 2, 1],['txtTvolume', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTotal2', 10, 0, 1]];
             var bbmMask = [['txtTimea', '999/99/99']];
             var bbsMask = [['txtBdate', '999/99/99'],['txtEdate', '999/99/99'],['txtUnit2', '999/99/99'],['txtTime3', '99:99']];
             q_sqlCount = 6;
@@ -34,6 +34,7 @@
             , ['txtCustno_', 'btnCust_', 'cust', 'noa,nick', 'txtCustno_,txtCust_', 'cust_b.aspx']
             , ['txtAddrno_', 'btnAddrno_', 'addr2', 'noa,addr,conn,tel,address,direction', 'txtAddrno_,txtAddr_,txtConn_,txtTel_,txtAddress_,txtProduct2_', 'addr2_b.aspx']
             , ['txtAddrno2_', 'btnAddrno2_', 'addr2', 'noa,addr,conn,tel,address,direction', 'txtAddrno2_,txtAddr2_,txtLat_,txtLat2_,txtAddress2_,txtProductno2_', 'addr2_b.aspx']
+            , ['txtAddrno3_', 'btnAddno3_', 'addr2', 'noa,addr', 'txtAddrno3_,txtAddr3_', 'addr2_b.aspx']
             , ['txtCarno_', 'btnCarno_', 'car2', 'a.noa,driverno,driver', 'txtCarno_,txtDriverno_,txtDriver_', 'car2_b.aspx']
             , ['txtDriverno_', 'btnDriver_', 'driver', 'noa,namea', 'txtDriverno_,txtDriver_', 'driver_b.aspx']
             );
@@ -52,6 +53,7 @@
                     return;
                 }
                 mainForm(0);
+                window.parent.document.title='訂單作業'
             }
             var t_weight=0;
             function sum() {
@@ -194,6 +196,13 @@
                         e.preventDefault();
                         var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
                         $('#btnAddrno2_'+n).click();
+                    });
+                    
+                    $('#txtAddrno3_' + i).bind('contextmenu', function(e) {
+                        /*滑鼠右鍵*/
+                        e.preventDefault();
+                        var n = $(this).attr('id').replace(/^(.*)_(\d+)$/,'$2');
+                        $('#btnAddno3_'+n).click();
                     });
                       
                     $('#txtMount_' + i).change(function() {
@@ -672,6 +681,8 @@
                     </td>
 					<td>
                         <input type="text" id="txtCarno.*" style="width:95%;"/>
+                        <input type="text" id="txtDriverno.*" style="display:none;"/>
+                        <input type="text" id="txtDriver.*" style="display:none;"/>
                         <input type="button" id="btnCarno.*" style="display:none;"/>
                     </td>
                     <td><input type="text" id="txtMemo2.*" style="width:95%;"/>
