@@ -99,7 +99,7 @@
 					</td>
 				</tr>
 				<tr class='seek_tr'>
-					<td class='seek'  style="width:20%;"><a id='lblNoa'>單據編號</a></td>
+					<td class='seek'  style="width:20%;"><a id='lblNoa'>電腦編號</a></td>
 					<td><input class="txt" id="txtNoa" type="text" style="width:215px; font-size:medium;" /></td>
 				</tr>
 				<tr class='seek_tr'>
