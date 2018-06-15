@@ -551,7 +551,7 @@
 						<td><input type="text" id="txtDatea" class="txt c1"/></td>
 						<td><span> </span><a id="lblTrandate_pa" class="lbl">配送日期</a></td>
 						<td><input type="text" id="txtTrandate" class="txt c1"/></td>
-						<td><span> </span><a id="lblNoa" class="lbl"> </a></td>
+						<td><span> </span><a id="lblNoa_pa" class="lbl">電腦編號</a></td>
                         <td colspan="2"><input type="text" id="txtNoa" class="txt c1" style="float:left;width:95%;"/></td>
 					</tr>
 					<tr>
@@ -607,7 +607,7 @@
 					<td align="center" style="width:80px;"><a>車牌</a></td>
 					<td align="center" style="width:100px"><a>準備工具<br>助理需求</a></td>
                     <td align="center" style="width:80px"><a>作業型態</a></td>
-					<td align="center" style="width:150px;"><a>訂單邊號<BR>銷貨單單號</a></td>
+					<td align="center" style="width:150px;"><a>訂單編號<BR>銷貨單單號</a></td>
 					<td align="center" style="width:100px;"><a>備註</a></td>
 				</tr>
 				<tr class="data" style='background:#cad3ff;'>

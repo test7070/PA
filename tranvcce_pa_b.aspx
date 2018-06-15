@@ -80,14 +80,15 @@
 				<tr style='color:White; background:#003366;' >
 					<td align="center" style="width:25px" ><input type="checkbox" id="checkAllCheckbox"/></td>
 					<td align="center" style="width:25px;"> </td>
-					<th align="center"><a id=''>派車單號</a></th>
+					<th align="center"><a id=''>訂單編號</a></th>
 					<th align="center"><a id=''>配送日期</a></th>
-					<th align="center"><a id=''>SFD</a></th>
+					<th align="center"><a id=''>取貨地</a></th>
                     <th align="center"><a id=''>配送地</a></th>
 					<th align="center"><a id=''>尺寸</a></th>
 					<th align="center"><a id=''>數量</a></th>
+					<th align="center"><a id=''>m3</a></th>
+					<th align="center"><a id=''>重量</a></th>
 					<th align="center"><a id=''>應收金額</a></th>
-					<th align="center"><a id=''>應付金額</a></th>
 				</tr>
 				<tr  style='background:#cad3ff;'>
 					<td style="width:25px;"><input id="chkSel.*" type="checkbox"/></td>
@@ -116,10 +117,13 @@
                         <input id="txtMount.*" type="text" style="float:left;text-align:right;width:95%;" readonly="readonly"/>
                     </td>
                     <td style="width:80px;">
-                       <input id="txtTotal.*" type="text" style="float:left;text-align:right;width:95%;" readonly="readonly" />
+                        <input id="txtTvolume.*" type="text" style="float:left;text-align:right;width:95%;" readonly="readonly"/>
                     </td>
                     <td style="width:80px;">
-                       <input id="txtTotal2.*" type="text" style="float:left;text-align:right;width:95%;" readonly="readonly" />
+                        <input id="txtWeight.*" type="text" style="float:left;text-align:right;width:95%;" readonly="readonly"/>
+                    </td>
+                    <td style="width:80px;">
+                       <input id="txtTotal.*" type="text" style="float:left;text-align:right;width:95%;" readonly="readonly" />
                     </td>
 				</tr>
 			</table>
