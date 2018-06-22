@@ -232,16 +232,16 @@ declare @tmp table(
 	no2 nvarchar(10)
 )
 insert @tmp 
-select '0',a.custno,a.comp,'',isnull(a.unit,''),b.unit2,isnull(a.ordeno,''),SUM(isnull(b.total,0)),a.memo,a.no2 
+select '0',a.addrno,a.addr,'',isnull(a.unit,''),b.unit2,isnull(a.ordeno,''),SUM(isnull(b.total,0)),a.memo,a.no2 
 from view_tranvcces b left join view_tranvcce a on a.noa=b.noa 
 where (a.cno between @t_bcno and @t_ecno) 
-and (a.custno between @t_bcustno and @t_ecustno) 
+and (a.addrno between @t_bcustno and @t_ecustno) 
 and (a.ordeno between @t_bvnoa and @t_evnoa) 
 and (b.unit2 between @t_bvdate and @t_evdate) 
-and (a.timea between @t_bdate and @t_edate)
-and (a.datea between @t_bodate and @t_eodate)
+and (a.timea between @t_bdate and @t_edate) 
+and (a.datea between @t_bodate and @t_eodate) 
 and (len(@t_stype)=0 or a.unit=@t_stype) 
-group by a.custno,a.comp,isnull(a.unit,''),b.unit2,isnull(a.ordeno,''),a.memo,a.no2
+group by a.addrno,a.addr,isnull(a.unit,''),b.unit2,isnull(a.ordeno,''),a.memo,a.no2 
 
 update a
 set rr=rx
@@ -325,12 +325,12 @@ case when a.unit like '%郵寄%' or a.unit like '%自送%' then '銷貨單單號
 ,case when a.unit like '%順送%' then '(160)' else(case when a.unit like '%專車%' then '(600)' end) end
 ,b.memo,b.addrno,b.addr,b.conn,b.tel,b.address,b.time1,b.addr2,b.lat,b.lat2,b.address2,b.time2,a.memo,b.lng2,b.allowcar,'',b.total,b.allowcar
 from view_tranvcces b left join view_tranvcce a on a.noa=b.noa
-where a.unit not like '%海運%'
+where isnull(a.unit,'') not like '%空運%' 
 and (a.timea between @t_bdate and @t_edate)
 and (a.cno between @t_bcno and @t_ecno)
 and (a.addrno between @t_bcustno and @t_ecustno)
 and (b.driverno between @t_bdriverno and @t_edriverno)
-and (a.unit between @t_bvnoa and @t_evnoa)
+and (a.ordeno between @t_bvnoa and @t_evnoa) 
 
 declare @pageline int =3--一頁3個品項
 
