@@ -20,7 +20,7 @@
             var q_readonlys = ['txtOrdeno', 'txtNo2'];
             var bbmNum = [];
             var bbsNum = [['txtMount', 10, 0, 1],['txtVolume', 10, 2, 1],['txtTvolume', 10, 2, 1],['txtWeight', 10, 2, 1],['txtTotal', 15, 0, 1],['txtTotal2', 10, 0, 1]];
-            var bbmMask = [['txtTimea', '999/99/99']];
+            var bbmMask = [['txtTimea', '999/99/99'],['txtCarno2', '999/99']];
             var bbsMask = [['txtBdate', '999/99/99'],['txtEdate', '999/99/99'],['txtUnit2', '999/99/99'],['txtTime3', '99:99']];
             q_sqlCount = 6;
             brwCount = 6;
@@ -124,6 +124,38 @@
                             }
                             t_weight=0;
                             break;
+                    case 'btnModi':
+                        if(r_rank<7){
+                            var as = _q_appendData("trans", "", true);
+                            if (as[0] != undefined) {
+                                var t_msg = "";
+                                for(var i=0;i<as.length;i++){
+                                    t_msg += String.fromCharCode(13)+'出車單號【'+as[i].noa+'】 ';
+                                }
+                                if(t_msg.length>0){
+                                    alert('已出車:'+ t_msg);
+                                    Unlock(1);
+                                    return;
+                                }
+                            }
+                        }else{
+                            var as = _q_appendData("trans", "", true);
+                            if (as[0] != undefined) {
+                                var t_msg = "";
+                                for(var i=0;i<as.length;i++){
+                                    t_msg += String.fromCharCode(13)+'出車單號【'+as[i].noa+'】 ';
+                                }
+                                if(t_msg.length>0){
+                                    alert('已出車:'+ t_msg);
+                                }
+                            }
+                        }
+                        _btnModi();
+                        sum();
+                        refreshBbs();
+                        Unlock(1);
+                        $('#txtDatea').focus();
+                        break;
                     case q_name:
                         if (q_cur == 4)
                             q_Seek_gtPost();
@@ -134,7 +166,17 @@
             function q_popPost(s1) {
             }
 
-            function btnOk() {
+            function btnOk() {               
+                if ($('#txtCarno2').val().length == 0) {
+                    alert('帳款月份錯誤。');
+                    Unlock(1);
+                    return;
+                }else if($('#txtCarno2').val()<q_date().substr(0,6)) {
+                    alert('帳款月份不能小於當月份。');
+                    Unlock(1);
+                    return;
+                }
+                
             	sum();
                 if(q_cur ==1){
                     $('#txtWorker').val(r_name);
@@ -237,8 +279,9 @@
             function btnModi() {
                 if (emp($('#txtNoa').val()))
                     return;
-                _btnModi();
-                refreshBbs();
+                Lock(1,{opacity:0});
+                t_where=" where=^^ ordeno='"+$('#txtNoa').val()+"'^^";
+                q_gt('trans', t_where, 0, 0, 0, "btnModi", r_accy);            
             }
 
             function btnPrint() {
@@ -577,17 +620,19 @@
                         <td colspan="3">
                             <input type="text" id="txtAddrno" class="txt" style="width:30%;float: left; " />
                             <input type="text" id="txtAddr" class="txt" style="width:70%;float: left; " />
-                        </td> 
+                        </td>
+                        <td><span> </span><a id="lblNo2_pa" class="lbl" >客戶性質</a></td>
+                        <td><select id="cmbNo2" style="width: 75%;"> </select></td> 
                     </tr>
 					<tr>
+					    <td><span> </span><a id="lblCarno2_pa" class="lbl" >帳款月份</a></td>
+                        <td><input id="txtCarno2" type="text" class="txt c1" /></td>
                         <td><span> </span><a id="lblOrdeno_pa" class="lbl" >帳款編號</a></td>
                         <td><input id="txtOrdeno" type="text" class="txt c1" /></td>
                         <td><span> </span><a id="lblUnit_pa" class="lbl" >JOB TYPE</a></td>
                         <td><input id="txtUnit" type="text" class="txt" style="width: 70%" />
                             <select id="combStype" style="width: 20%;"> </select> 
-                        </td>
-                        <td><span> </span><a id="lblNo2_pa" class="lbl" >客戶性質</a></td>
-                        <td><select id="cmbNo2" style="width: 75%;"> </select></td>                   
+                        </td>                 
                     </tr>
                     <tr>
                         <td><span> </span><a id="lblMemo" class="lbl" > </a></td>

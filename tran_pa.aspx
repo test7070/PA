@@ -88,8 +88,8 @@
                     $.datepicker.r_len=4;
                 }
 				$('#btnOrde').click(function(e){
-                    t_custno=$('#txtAddrno').val();
-                    var t_where = "custno='"+t_custno+"' and not exists(select noa,noq from view_trans where view_tranvcces.noa=ordeno and view_tranvcces.noq=caseno2)";
+                    t_trandate=$('#txtTrandate').val();
+                    var t_where = "edate='"+t_trandate+"' and not exists(select noa,noq from view_trans where view_tranvcces.noa=ordeno and view_tranvcces.noq=caseno2)";
                     q_box("tranvcce_pa_b.aspx?" + r_userno + ";" + r_name + ";" + q_time + ";" + t_where, 'tranvcce_tran', "95%", "650px");
                 });
 	
@@ -559,13 +559,6 @@
                         <td colspan="3">
                             <input type="text" id="txtCno" class="txt" style="float:left;width:30%;"/>
                             <input type="text" id="txtAcomp" class="txt" style="float:left;width:70%;"/>
-                        </td>
-                    </tr>
-					<tr>
-                        <td><span> </span><a id="lblAddrno" class="lbl btn" >客戶</a></td>
-                        <td colspan="3">
-                            <input type="text" id="txtAddrno" class="txt" style="float:left;width:30%;"/>
-                            <input type="text" id="txtAddr" class="txt" style="float:left;width:70%;"/>
                         </td>
                     </tr>
 					<tr>

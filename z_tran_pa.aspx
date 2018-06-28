@@ -68,7 +68,7 @@
                         src : 'driver_b.aspx'
                     },{
                         type : '1',//[16][17]
-                        name : 'vdate'
+                        name : 'Xmon'
                     },{
                         type : '1',//[18][19]
                         name : 'vnoa'
@@ -87,6 +87,10 @@
                         type : '5', //[24]
                         name : 'xshow2',
                         value : (' @全部,0@未完工,1@已完工').split(',')
+                    },{//2
+                        type : '8',//[25]
+                        name : 'xdetail',
+                        value : "1@顯示明細".split(',')
                     }]
                     });
                 q_popAssign();
@@ -97,14 +101,12 @@
                     r_1911=0
                 }
                 
-                 $('#txtDate1').mask('9999/99/99');
+                 $('#txtDate1').mask('999/99/99');
 	             $('#txtDate1').datepicker();
-	             $('#txtDate2').mask('9999/99/99');
+	             $('#txtDate2').mask('999/99/99');
 	             $('#txtDate2').datepicker();
-	             $('#txtVdate1').mask('9999/99/99');
-                 $('#txtVdate1').datepicker();
-	             $('#txtVdate2').mask('9999/99/99');
-                 $('#txtVdate2').datepicker();
+	             $('#txtXmon1').mask('999/99');
+	             $('#txtXmon2').mask('999/99');
                  
                 var t_noa=typeof(q_getId()[5])=='undefined'?'':q_getId()[5];
                 t_noa  =  t_noa.replace('noa=','');
