@@ -310,7 +310,6 @@
                 as['custno'] = abbm2['addrno'];
                 as['cust'] = abbm2['addr'];
                 as['edate'] = abbm2['timea'];
-                as['unit2'] = abbm2['carno2'];
                 return true;
             }
 

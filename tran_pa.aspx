@@ -582,7 +582,7 @@
 				<tr style='color:white; background:#003366;' >
 					<td align="center" style="width:25px"><input class="btn"  id="btnPlus" type="button" value='+' style="font-weight: bold;"  /></td>
 					<td align="center" style="width:20px;"> </td>
-					<td align="center" style="width:80px"><a>帳單日期</a></td>
+					<td align="center" style="display:none;"><a>帳單日期</a></td>
 					<td align="center" style="width:90px"><a>預計配送日期<BR>裝車日期</a></td>
 					<td align="center" style="width:200px"><a>取貨地<br>寄件人 / 電話<br>地址<br>取貨日期時間<br>特殊需求</a></td>
                     <td align="center" style="width:200px"><a>配送地<br>收件人 / 電話<br>地址<br>送達日期時間<br>特殊需求</a></td>
@@ -609,7 +609,7 @@
 						<input type="text" id="txtNoq.*" style="display:none;"/>
 					</td>
 					<td><a id="lblNo.*" style="font-weight: bold;text-align: center;display: block;"> </a></td>
-					<td><input type="text" id="txtDtime.*" style="width:95%;" /></td>
+					<td style="display:none;"><input type="text" id="txtDtime.*" style="display:none;" /></td>
 					<td><input type="text" id="txtDatea.*" style="width:95%;" />
 					    <input type="text" id="txtTimea.*" style="width:95%;" />
 					</td>
